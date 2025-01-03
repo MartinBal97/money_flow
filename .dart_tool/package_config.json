@@ -56,6 +56,18 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "flutter_web_plugins",
+      "rootUri": "file:///Users/martinbalverde/flutter/packages/flutter_web_plugins",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "go_router",
+      "rootUri": "file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/go_router-14.6.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "leak_tracker",
       "rootUri": "file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/leak_tracker-10.0.7",
       "packageUri": "lib/",
@@ -78,6 +90,12 @@
       "rootUri": "file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/lints-5.1.1",
       "packageUri": "lib/",
       "languageVersion": "3.6"
+    },
+    {
+      "name": "logging",
+      "rootUri": "file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/logging-1.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
     },
     {
       "name": "matcher",
@@ -164,7 +182,7 @@
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2025-01-03T09:31:28.626224Z",
+  "generated": "2025-01-03T11:09:44.428111Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///Users/martinbalverde/flutter",

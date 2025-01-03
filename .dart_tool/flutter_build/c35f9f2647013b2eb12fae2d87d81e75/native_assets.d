@@ -1,1 +1,0 @@
- /Users/martinbalverde/Desktop/LocalCode/money_flow/.dart_tool/flutter_build/c35f9f2647013b2eb12fae2d87d81e75/native_assets.yaml: 
