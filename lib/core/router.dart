@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:money_flow/presentation/pages/details_screen.dart';
 import 'package:money_flow/presentation/pages/home/home_screen.dart';
 
 // GoRouter configuration
@@ -9,6 +10,11 @@ import 'package:money_flow/presentation/pages/home/home_screen.dart';
       path: '/',
       builder: (context, state) => HomeScreen(),
     ),
+     GoRoute(
+      path: '/details',
+      builder: (context, state) => DetailsScreen(),
+    ),
+    
   ],
 );
 
