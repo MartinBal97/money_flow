@@ -3,6 +3,8 @@ import 'package:money_flow/core/app_theme.dart';
 import 'package:money_flow/core/router.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MainApp());
 }
 
