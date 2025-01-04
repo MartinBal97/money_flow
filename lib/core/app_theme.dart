@@ -11,6 +11,8 @@ const Color blue700 = Color(0xFF143960);
 const Color blue800 = Color(0xFF17314F);
 const Color blue900 = Color(0xFF122134);
 
+const Color aliceBlue = Color(0xFFE8EDF4);
+
 // Colores neutros
 const Color neutral100 = Color(0xFFF7F9FD);
 const Color neutral200 = Color(0xFFECEDF2);

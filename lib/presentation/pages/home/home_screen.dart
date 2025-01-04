@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:money_flow/core/app_theme.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -38,7 +40,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             Text(
               'Hola, Martin',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18, fontWeight: b),
             ),
             Text(
               'Nivel 2',
@@ -151,24 +153,32 @@ class HomeScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildActionButton(Icons.arrow_upward, 'Gasto'),
-        _buildActionButton(Icons.arrow_downward, 'Ingreso'),
-        _buildActionButton(Icons.sync_alt, 'Habitual'),
+        _buildActionButton(CupertinoIcons.arrow_up, 'Gasto'),
+        _buildActionButton(CupertinoIcons.arrow_down, 'Ingreso'),
+        _buildActionButton(CupertinoIcons.add, 'Habitual'),
       ],
     );
   }
 
   Widget _buildActionButton(IconData icon, String label) {
-    return Column(
-      children: [
-        CircleAvatar(
-          radius: 28,
-          backgroundColor: Colors.grey[200],
-          child: Icon(icon, color: Colors.blue),
-        ),
-        SizedBox(height: 8),
-        Text(label, style: TextStyle(fontSize: 14)),
-      ],
+    return ElevatedButton(
+      onPressed: () {},
+      style: ButtonStyle(
+        padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 14, vertical: 20)),
+        side: WidgetStateProperty.all(BorderSide.none),
+        backgroundColor: WidgetStateProperty.all(aliceBlue),
+        shape: WidgetStateProperty.all(RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        )),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 5,
+        children: [
+          Icon(icon, color: blue500),
+          Text(label, style: TextStyle(fontSize: 14, color: blue500)),
+        ],
+      ),
     );
   }
 }
