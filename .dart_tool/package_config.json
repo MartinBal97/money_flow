@@ -50,18 +50,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "flex_color_scheme",
-      "rootUri": "file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/flex_color_scheme-8.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
-      "name": "flex_seed_scheme",
-      "rootUri": "file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/flex_seed_scheme-3.5.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
       "name": "flutter",
       "rootUri": "file:///Users/martinbalverde/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -206,7 +194,7 @@
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2025-01-04T23:25:21.529389Z",
+  "generated": "2025-01-04T23:28:08.759054Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///Users/martinbalverde/flutter",
