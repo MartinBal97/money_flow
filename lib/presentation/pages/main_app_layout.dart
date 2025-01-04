@@ -128,13 +128,11 @@ import 'package:money_flow/core/router.dart';
 
 class NavigationTabData {
   final Widget icon;
-  final Widget activeIcon;
   final String label;
   final String route;
 
   const NavigationTabData({
     required this.icon,
-    required this.activeIcon,
     required this.label,
     required this.route,
   });
@@ -151,26 +149,22 @@ class MainAppLayout extends StatefulWidget {
 
 final navigationTabs = [
   NavigationTabData(
-    icon: const Icon(CupertinoIcons.home),
-    activeIcon: const Icon(CupertinoIcons.home),
+    icon: const Icon(CupertinoIcons.house_fill),
     label: "Home",
     route: '/',
   ),
   NavigationTabData(
-    icon: const Icon(CupertinoIcons.radiowaves_left),
-    activeIcon: const Icon(CupertinoIcons.radiowaves_left),
+    icon: const Icon(CupertinoIcons.scope),
     label: "Objetivos",
     route: '/goals',
   ),
   NavigationTabData(
-    icon: const Icon(CupertinoIcons.home),
-    activeIcon: const Icon(CupertinoIcons.home),
+    icon: const Icon(CupertinoIcons.chart_pie_fill),
     label: "Resumen",
     route: '/summary',
   ),
   NavigationTabData(
-    icon: const Icon(CupertinoIcons.home),
-    activeIcon: const Icon(CupertinoIcons.home),
+    icon: const Icon(CupertinoIcons.money_pound),
     label: "Billetera",
     route: '/wallet',
   ),
@@ -211,11 +205,12 @@ class _MainAppLayoutState extends State<MainAppLayout> {
     double heightMq = MediaQuery.sizeOf(context).height;
 
     return Scaffold(
+      extendBody: true,
       body: widget.child,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.primary,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-        child: Icon(CupertinoIcons.add, color: white),
+        child: Icon(CupertinoIcons.add, color: white, size: 30),
         onPressed: () {
           showModalBottomSheet(
             context: context,
@@ -235,8 +230,13 @@ class _MainAppLayoutState extends State<MainAppLayout> {
         activeColor: Theme.of(context).colorScheme.primary,
         activeIndex: selectedIndex,
         gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.verySmoothEdge,
+        notchSmoothness: NotchSmoothness.values[2],
+        leftCornerRadius: 24,
+        rightCornerRadius: 24,
         onTap: onItemTapped,
+        safeAreaValues: SafeAreaValues(top: true),
+        iconSize: 24,
+        inactiveColor: neutral400,
         backgroundColor: white,
       ),
     );
