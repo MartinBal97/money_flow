@@ -3,6 +3,8 @@ import 'package:money_flow/core/app_theme.dart';
 import 'package:money_flow/core/router.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MainApp());
 }
 
@@ -13,7 +15,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Money Flow',
-      routerConfig: AppRouter().getRouter(),
+      routerConfig: appRouter,
       theme: AppTheme().getTheme(),
     );
   }
