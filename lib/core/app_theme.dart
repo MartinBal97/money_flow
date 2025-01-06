@@ -106,13 +106,7 @@ class AppTheme {
   ThemeData getTheme() => ThemeData(
         colorSchemeSeed: _seedColor,
         textTheme: _textTheme,
-        elevatedButtonTheme: _elevatedButtonTheme,
-        // listTileTheme: ListTileThemeData(
-        //   contentPadding: EdgeInsets.zero,
-        //   horizontalTitleGap: 0,
-        //   minVerticalPadding: 0,
-
-        // ),
+        //elevatedButtonTheme: _elevatedButtonTheme,
       );
 }
 

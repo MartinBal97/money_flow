@@ -27,26 +27,10 @@ class MainAppLayout extends StatefulWidget {
 }
 
 final navigationTabs = [
-  NavigationTabData(
-    icon: const Icon(CupertinoIcons.house_fill),
-    label: "Home",
-    route: '/',
-  ),
-  NavigationTabData(
-    icon: const Icon(CupertinoIcons.scope),
-    label: "Objetivos",
-    route: '/goals',
-  ),
-  NavigationTabData(
-    icon: const Icon(CupertinoIcons.chart_pie_fill),
-    label: "Resumen",
-    route: '/summary',
-  ),
-  NavigationTabData(
-    icon: const Icon(CupertinoIcons.money_pound),
-    label: "Billetera",
-    route: '/wallet',
-  ),
+  NavigationTabData(icon: const Icon(CupertinoIcons.house_fill), label: "Home", route: '/'),
+  NavigationTabData(icon: const Icon(Icons.track_changes), label: "Objetivos", route: '/goals'),
+  NavigationTabData(icon: const Icon(CupertinoIcons.chart_pie_fill), label: "Resumen", route: '/summary'),
+  NavigationTabData(icon: const Icon(Icons.wallet), label: "Billetera", route: '/wallet'),
 ];
 
 class _MainAppLayoutState extends State<MainAppLayout> {
@@ -96,6 +80,7 @@ class _MainAppLayoutState extends State<MainAppLayout> {
       bottomNavigationBar: AnimatedBottomNavigationBar(
         icons: navigationTabs.map((tab) => (tab.icon as Icon).icon!).toList(),
         activeColor: blue500,
+        inactiveColor: neutral400,
         activeIndex: selectedIndex,
         gapLocation: GapLocation.center,
         notchSmoothness: NotchSmoothness.values[2],
@@ -104,7 +89,6 @@ class _MainAppLayoutState extends State<MainAppLayout> {
         onTap: onItemTapped,
         safeAreaValues: SafeAreaValues(top: true),
         iconSize: 24,
-        inactiveColor: neutral400,
         backgroundColor: white,
       ),
     );
