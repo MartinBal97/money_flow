@@ -54,22 +54,44 @@ const FontWeight r = FontWeight.w400;
 
 const Color _seedColor = blue500;
 
+const TextStyle disBigTextStyle =
+    TextStyle(fontFamily: 'SF Pro Display', fontSize: 32, fontWeight: b, letterSpacing: -0.4, height: 0);
+const TextStyle disLargeTextStyle =
+    TextStyle(fontFamily: 'SF Pro Display', fontSize: 24, fontWeight: sb, letterSpacing: -0.4, height: 0);
+const TextStyle titleTextStyle =
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 20, fontWeight: b, letterSpacing: -0.4, height: 0);
+const TextStyle secHeaderTextStyle =
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 17, fontWeight: sb, letterSpacing: -0.4, height: 0);
+const TextStyle subTitleTextStyle =
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: sb, letterSpacing: -0.4, height: 0);
+const TextStyle bodyLargeBTextStyle =
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: b, letterSpacing: -0.4, height: 0);
+const TextStyle bodyLargeRTextStyle =
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: r, letterSpacing: -0.4, height: 0);
+const TextStyle bodySmallBTextStyle =
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: b, letterSpacing: -0.4, height: 0);
+const TextStyle bodySmallRTextStyle =
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: r, letterSpacing: -0.4, height: 0);
+const TextStyle buttonsTextStyle =
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 17, fontWeight: r, letterSpacing: -0.4, height: 0);
+const TextStyle largeRegularTextStyle =
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: m, letterSpacing: -0.4, height: 0);
+const TextStyle smallRegularTextStyle =
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: r, letterSpacing: -0.4, height: 0);
+
 const TextTheme _textTheme = TextTheme(
-  displayLarge: TextStyle(fontFamily: 'SF Pro Display', fontSize: 32, fontWeight: b, letterSpacing: -0.4, height: 0),
-  displayMedium: TextStyle(fontFamily: 'SF Pro Display', fontSize: 34, fontWeight: sb, letterSpacing: -0.4, height: 0),
-  //displaySmall: TextStyle(fontFamily: 'SF Pro Display', fontSize: 24, fontWeight: b, letterSpacing: -0.4, height: 0),
-  headlineLarge: TextStyle(fontFamily: 'SF Pro Text', fontSize: 20, fontWeight: b, letterSpacing: -0.4, height: 0),
-  headlineMedium: TextStyle(fontFamily: 'SF Pro Text', fontSize: 17, fontWeight: sb, letterSpacing: -0.4, height: 0),
-  headlineSmall: TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: sb, letterSpacing: -0.4, height: 0),
-  titleLarge: TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: b, letterSpacing: -0.4, height: 0),
-  titleMedium: TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: r, letterSpacing: -0.4, height: 0),
-  titleSmall: TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: r, letterSpacing: -0.4, height: 0),
-  bodyLarge: TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: b, letterSpacing: -0.4, height: 0),
-  bodyMedium: TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: r, letterSpacing: -0.4, height: 0),
-  bodySmall: TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: sb, letterSpacing: -0.4, height: 0),
-  labelLarge: TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: r, letterSpacing: -0.4, height: 0),
-  labelMedium: TextStyle(fontFamily: 'SF Pro Text', fontSize: 12, fontWeight: sb, letterSpacing: -0.4, height: 0),
-  labelSmall: TextStyle(fontFamily: 'SF Pro Text', fontSize: 12, fontWeight: r, letterSpacing: -0.4, height: 0),
+  displayLarge: disBigTextStyle,
+  displayMedium: disLargeTextStyle,
+  headlineLarge: titleTextStyle,
+  headlineMedium: secHeaderTextStyle,
+  headlineSmall: subTitleTextStyle,
+  titleLarge: bodyLargeBTextStyle,
+  titleMedium: bodyLargeRTextStyle,
+  titleSmall: bodySmallBTextStyle,
+  bodyLarge: bodySmallRTextStyle,
+  bodyMedium: buttonsTextStyle,
+  bodySmall: largeRegularTextStyle,
+  labelMedium: smallRegularTextStyle,
 );
 
 ElevatedButtonThemeData _elevatedButtonTheme = ElevatedButtonThemeData(
@@ -92,4 +114,14 @@ class AppTheme {
 
         // ),
       );
+}
+
+extension UIThemeExtension on BuildContext {
+  //* TEXT COLOR : GRAY 700 (0xFF374151) & GREEN 500 (0xFF516665)
+
+//  TextStyle get s48w7gray700 => Theme.of(this).textTheme.displayLarge!;
+
+  // * Size screen
+  double get widthMq => MediaQuery.sizeOf(this).width;
+  double get heightMq => MediaQuery.sizeOf(this).height;
 }

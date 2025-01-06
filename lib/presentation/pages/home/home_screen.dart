@@ -8,25 +8,36 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200], // Color de fondo
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            spacing: 16,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Encabezado
-              _buildHeader(),
-
-              // Card de ingresos
-              _buildIncomeCard(),
-
-              // Botones inferiores
-              _buildActionButtons(),
-            ],
+      backgroundColor: secondaryColor,
+      body: Stack(
+        children: [
+          DecoratedBox(
+            decoration: BoxDecoration(color: blue500),
+            child: SizedBox(
+              height: 200,
+              width: double.infinity,
+            ),
           ),
-        ),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                spacing: 16,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Encabezado
+                  _buildHeader(),
+
+                  // Card de ingresos
+                  _buildIncomeCard(context),
+
+                  // Botones inferiores
+                  _buildActionButtons(),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -40,22 +51,22 @@ class HomeScreen extends StatelessWidget {
           children: [
             Text(
               'Hola, Martin',
-              style: TextStyle(fontSize: 18, fontWeight: b),
+              style: bodySmallBTextStyle.copyWith(color: white),
             ),
             Text(
               'Nivel 2',
-              style: TextStyle(color: Colors.grey),
+              style: bodySmallRTextStyle.copyWith(color: white),
             ),
           ],
         ),
         Row(
           children: [
             IconButton(
-              icon: Icon(Icons.notifications_outlined),
+              icon: Icon(CupertinoIcons.bell, color: white),
               onPressed: () {},
             ),
             IconButton(
-              icon: Icon(Icons.settings_outlined),
+              icon: Icon(Icons.settings_outlined, color: white),
               onPressed: () {},
             ),
           ],
@@ -64,7 +75,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildIncomeCard() {
+  Widget _buildIncomeCard(context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
@@ -72,13 +83,12 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Título
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Ingresos noviembre',
-                  style: TextStyle(color: Colors.grey),
+                  style: subTitleTextStyle.copyWith(color: neutral300),
                 ),
                 DropdownButton<String>(
                   value: 'Efectivo',
@@ -96,15 +106,8 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 8),
             // Cantidad de ingresos
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  '\$20.000,00',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text('\$20.000,00', style: disBigTextStyle),
                 IconButton(
                   icon: Icon(Icons.visibility),
                   onPressed: () {},
@@ -112,37 +115,36 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16),
-            // Tabs de "Gastos" e "Ingresos"
-            Row(
-              children: [
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.grey[200],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text('Gastos'),
-                  ),
-                ),
-                SizedBox(width: 8),
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      foregroundColor: Colors.white,
-                    ),
-                    child: Text('Ingresos'),
-                  ),
-                ),
-              ],
-            ),
+            //Tabs de "Gastos" e "Ingresos"
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: TextButton(
+            //         onPressed: () {},
+            //         style: TextButton.styleFrom(
+            //           backgroundColor: Colors.grey[200],
+            //           shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(8),
+            //           ),
+            //         ),
+            //         child: Text('Gastos'),
+            //       ),
+            //     ),
+            //     Expanded(
+            //       child: TextButton(
+            //         onPressed: () {},
+            //         style: TextButton.styleFrom(
+            //           backgroundColor: Colors.blue,
+            //           shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(8),
+            //           ),
+            //           foregroundColor: Colors.white,
+            //         ),
+            //         child: Text('Ingresos'),
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),
