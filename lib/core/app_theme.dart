@@ -54,44 +54,44 @@ const FontWeight r = FontWeight.w400;
 
 const Color _seedColor = blue500;
 
-const TextStyle disBigTextStyle =
+const TextStyle disBigTS =
     TextStyle(fontFamily: 'SF Pro Display', fontSize: 32, fontWeight: b, letterSpacing: -0.4, height: 0);
-const TextStyle disLargeTextStyle =
+const TextStyle disLargeTS =
     TextStyle(fontFamily: 'SF Pro Display', fontSize: 24, fontWeight: sb, letterSpacing: -0.4, height: 0);
-const TextStyle titleTextStyle =
+const TextStyle titleTS =
     TextStyle(fontFamily: 'SF Pro Text', fontSize: 20, fontWeight: b, letterSpacing: -0.4, height: 0);
-const TextStyle secHeaderTextStyle =
+const TextStyle secHeaderTS =
     TextStyle(fontFamily: 'SF Pro Text', fontSize: 17, fontWeight: sb, letterSpacing: -0.4, height: 0);
-const TextStyle subTitleTextStyle =
+const TextStyle subtitleTS =
     TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: sb, letterSpacing: -0.4, height: 0);
-const TextStyle bodyLargeBTextStyle =
+const TextStyle bodyLargeBTS =
     TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: b, letterSpacing: -0.4, height: 0);
-const TextStyle bodyLargeRTextStyle =
+const TextStyle bodyLargeRTS =
     TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: r, letterSpacing: -0.4, height: 0);
-const TextStyle bodySmallBTextStyle =
+const TextStyle bodySmallBTS =
     TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: b, letterSpacing: -0.4, height: 0);
-const TextStyle bodySmallRTextStyle =
+const TextStyle bodySmallRTS =
     TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: r, letterSpacing: -0.4, height: 0);
-const TextStyle buttonsTextStyle =
+const TextStyle buttonsTS =
     TextStyle(fontFamily: 'SF Pro Text', fontSize: 17, fontWeight: r, letterSpacing: -0.4, height: 0);
-const TextStyle largeRegularTextStyle =
+const TextStyle largeRegularTS =
     TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: m, letterSpacing: -0.4, height: 0);
-const TextStyle smallRegularTextStyle =
+const TextStyle smallRegularTS =
     TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: r, letterSpacing: -0.4, height: 0);
 
 const TextTheme _textTheme = TextTheme(
-  displayLarge: disBigTextStyle,
-  displayMedium: disLargeTextStyle,
-  headlineLarge: titleTextStyle,
-  headlineMedium: secHeaderTextStyle,
-  headlineSmall: subTitleTextStyle,
-  titleLarge: bodyLargeBTextStyle,
-  titleMedium: bodyLargeRTextStyle,
-  titleSmall: bodySmallBTextStyle,
-  bodyLarge: bodySmallRTextStyle,
-  bodyMedium: buttonsTextStyle,
-  bodySmall: largeRegularTextStyle,
-  labelMedium: smallRegularTextStyle,
+  displayLarge: disBigTS,
+  displayMedium: disLargeTS,
+  headlineLarge: titleTS,
+  headlineMedium: secHeaderTS,
+  headlineSmall: subtitleTS,
+  titleLarge: bodyLargeBTS,
+  titleMedium: bodyLargeRTS,
+  titleSmall: bodySmallBTS,
+  bodyLarge: bodySmallRTS,
+  bodyMedium: buttonsTS,
+  bodySmall: largeRegularTS,
+  labelMedium: smallRegularTS,
 );
 
 ElevatedButtonThemeData _elevatedButtonTheme = ElevatedButtonThemeData(

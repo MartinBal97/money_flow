@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:money_flow/core/app_theme.dart';
-import 'package:money_flow/presentation/widgets/buttons_widgets.dart';
+import 'package:money_flow/presentation/common_widgets/buttons_widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,37 +19,86 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: secondaryColor,
-      body: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
-        child: Stack(
-          children: [
-            DecoratedBox(
-              decoration: BoxDecoration(color: blue500),
-              child: SizedBox(height: 250, width: double.infinity),
-            ),
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  spacing: 16,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Encabezado
-                    _buildHeader(),
+    return SingleChildScrollView(
+      physics: AlwaysScrollableScrollPhysics(),
+      child: Stack(
+        children: [
+          DecoratedBox(
+            decoration: BoxDecoration(color: blue500),
+            child: SizedBox(height: 250, width: double.infinity),
+          ),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Encabezado
+                  _buildHeader(),
+                  const SizedBox(height: 8),
+                  // Card de ingresos
+                  _buildIncomeCard(),
+                  const SizedBox(height: 16),
+                  // Botones de acciones
+                  _buildActionButtons(),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Transacciones', style: subtitleTS),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text('Ver todos', style: bodySmallRTS.copyWith(color: blue500)),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 8),
 
-                    // Card de ingresos
-                    _buildIncomeCard(),
+                  ListTile(
+                    contentPadding: EdgeInsets.all(0),
+                    title: Text('Supermercado', style: subtitleTS),
+                    subtitle: Text('15 de Noviembre', style: smallRegularTS.copyWith(color: neutral400)),
+                    trailing: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('-\$1.500,00', style: subtitleTS.copyWith(color: error500)),
+                        const SizedBox(height: 5),
+                        Text('10:56', style: smallRegularTS.copyWith(color: neutral400)),
+                      ],
+                    ),
+                    leading: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: blue200,
+                      child: Icon(Icons.shopping_cart, color: blue500, size: 16),
+                    ),
+                  ),
 
-                    // Botones inferiores
-                    _buildActionButtons(),
-                  ],
-                ),
+                  Text('Tus metas', style: subtitleTS),
+
+                  /* Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Meta 1', style: bodySmallBTS),
+                              Text('20.000,00', style: bodySmallBTS),
+                            ],
+                          ),
+                          SizedBox(height: 8),
+                          CircularProgressIndicator(value: 0.6),
+                        ],
+                      ),
+                    ),
+                  ) */
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -80,11 +129,11 @@ class HomeScreenState extends State<HomeScreen> {
       ),
       title: Text(
         'Hola, Martin',
-        style: bodySmallBTextStyle.copyWith(color: white),
+        style: bodySmallBTS.copyWith(color: white),
       ),
       subtitle: Text(
         'Nivel 2',
-        style: bodySmallRTextStyle.copyWith(color: white),
+        style: bodySmallRTS.copyWith(color: white),
       ),
     );
   }
@@ -106,7 +155,7 @@ class HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text(
                       spendingOrIncomesToggle ? 'Ingresos noviembre' : 'Gastos noviembre',
-                      style: subTitleTextStyle.copyWith(color: neutral300),
+                      style: subtitleTS.copyWith(color: neutral300),
                     ),
                   ],
                 ),
@@ -124,7 +173,7 @@ class HomeScreenState extends State<HomeScreen> {
                           value: value,
                           child: Text(
                             value,
-                            style: bodyLargeBTextStyle.copyWith(color: blue500, fontWeight: sb),
+                            style: bodyLargeBTS.copyWith(color: blue500, fontWeight: sb),
                           ),
                         ),
                       )
@@ -135,9 +184,7 @@ class HomeScreenState extends State<HomeScreen> {
             // Cantidad de ingresos
             Row(
               children: [
-                moneyVisibility
-                    ? Text('\$20.000,00', style: disBigTextStyle)
-                    : Text('\$********', style: disBigTextStyle),
+                moneyVisibility ? Text('\$20.000,00', style: disBigTS) : Text('\$********', style: disBigTS),
                 IconButton(
                   icon: moneyVisibility ? Icon(Icons.visibility_outlined) : Icon(Icons.visibility_off_outlined),
                   onPressed: () {
@@ -156,7 +203,7 @@ class HomeScreenState extends State<HomeScreen> {
               indicatorSize: const Size(double.infinity, 30),
               customIconBuilder: (context, local, global) => Text(
                 local.value ? 'Ingresos' : 'Gastos',
-                style: bodySmallRTextStyle.copyWith(
+                style: bodySmallRTS.copyWith(
                   color: Color.lerp(blue500, white, local.animationValue),
                   fontWeight: FontWeight.lerp(r, sb, local.animationValue),
                 ),
@@ -187,17 +234,17 @@ class HomeScreenState extends State<HomeScreen> {
         CustomButton(
           text: 'Gasto',
           widget: Icon(CupertinoIcons.arrow_down, color: blue500, size: 32),
-          onPressed: () {},
+          onTap: () {},
         ),
         CustomButton(
           text: 'Ingreso',
           widget: Icon(CupertinoIcons.arrow_up, color: blue500, size: 32),
-          onPressed: () {},
+          onTap: () {},
         ),
         CustomButton(
           text: 'Habitual',
           widget: SvgPicture.asset('assets/images/gastohabitual.svg', width: 32),
-          onPressed: () {},
+          onTap: () {},
         ),
       ],
     );
