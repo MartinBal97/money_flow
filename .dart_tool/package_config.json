@@ -93,9 +93,9 @@
     },
     {
       "name": "go_router",
-      "rootUri": "file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/go_router-14.6.2",
+      "rootUri": "file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/go_router-14.6.3",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.4"
     },
     {
       "name": "http",
@@ -272,7 +272,7 @@
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2025-01-06T15:21:09.383749Z",
+  "generated": "2025-01-07T09:51:45.373138Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///Users/martinbalverde/flutter",
