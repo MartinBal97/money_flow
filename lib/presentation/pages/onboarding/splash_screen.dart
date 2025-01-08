@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:money_flow/core/constans/app_sizes.dart';
-import 'package:money_flow/core/theme/app_theme.dart';
+import 'package:my_pocket/core/theme/app_theme.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  SplashScreenState createState() => SplashScreenState();
+}
+
+class SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat(reverse: false);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   void _navigateToHome(BuildContext context) {
     context.go('/home');
@@ -23,24 +44,32 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: blue500,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: white,
-                borderRadius: BorderRadius.circular(100),
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            return ShaderMask(
+              shaderCallback: (bounds) {
+                return LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    Colors.grey.withValues(alpha: 0.1),
+                    Colors.grey.withValues(alpha: 0.7),
+                    Colors.grey.withValues(alpha: 0.1),
+                  ],
+                  stops: [
+                    _controller.value - 0.2,
+                    _controller.value,
+                    _controller.value + 0.2,
+                  ],
+                ).createShader(bounds);
+              },
+              blendMode: BlendMode.srcATop,
+              child: SvgPicture.asset(
+                'assets/images/logo.svg', // Ruta de tu archivo SVG
               ),
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(blue500),
-                strokeWidth: 4.0,
-                backgroundColor: neutral300,
-              ),
-            ),
-            gapH40,
-            SvgPicture.asset('assets/images/logo.svg'),
-          ],
+            );
+          },
         ),
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money_flow/core/router/router.dart';
-import 'package:money_flow/core/theme/app_theme.dart';
+import 'package:my_pocket/core/router/router.dart';
+import 'package:my_pocket/core/theme/app_theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Money Flow',
+      title: 'My Pocket',
       routerConfig: appRouter,
       theme: AppTheme().getTheme(),
     );

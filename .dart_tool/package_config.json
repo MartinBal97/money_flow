@@ -231,7 +231,7 @@
     },
     {
       "name": "vector_graphics_codec",
-      "rootUri": "file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/vector_graphics_codec-1.1.12",
+      "rootUri": "file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/vector_graphics_codec-1.1.13",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -266,13 +266,13 @@
       "languageVersion": "3.2"
     },
     {
-      "name": "money_flow",
+      "name": "my_pocket",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2025-01-07T09:51:45.373138Z",
+  "generated": "2025-01-08T11:46:59.515541Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///Users/martinbalverde/flutter",

@@ -2,9 +2,9 @@ import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:money_flow/core/constans/app_sizes.dart';
-import 'package:money_flow/core/theme/app_theme.dart';
-import 'package:money_flow/presentation/common_widgets/buttons_widgets.dart';
+import 'package:my_pocket/core/constans/app_sizes.dart';
+import 'package:my_pocket/core/theme/app_theme.dart';
+import 'package:my_pocket/presentation/common_widgets/buttons_widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
