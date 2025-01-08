@@ -2,8 +2,8 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:money_flow/core/app_theme.dart';
-import 'package:money_flow/core/router.dart';
+import 'package:money_flow/core/router/router.dart';
+import 'package:money_flow/core/theme/app_theme.dart';
 
 class NavigationTabData {
   final Widget icon;
@@ -27,26 +27,10 @@ class MainAppLayout extends StatefulWidget {
 }
 
 final navigationTabs = [
-  NavigationTabData(
-    icon: const Icon(CupertinoIcons.house_fill),
-    label: "Home",
-    route: '/',
-  ),
-  NavigationTabData(
-    icon: const Icon(CupertinoIcons.scope),
-    label: "Objetivos",
-    route: '/goals',
-  ),
-  NavigationTabData(
-    icon: const Icon(CupertinoIcons.chart_pie_fill),
-    label: "Resumen",
-    route: '/summary',
-  ),
-  NavigationTabData(
-    icon: const Icon(CupertinoIcons.money_pound),
-    label: "Billetera",
-    route: '/wallet',
-  ),
+  NavigationTabData(icon: const Icon(CupertinoIcons.house_fill), label: "Home", route: '/home'),
+  NavigationTabData(icon: const Icon(Icons.track_changes), label: "Objetivos", route: '/goals'),
+  NavigationTabData(icon: const Icon(CupertinoIcons.chart_pie_fill), label: "Resumen", route: '/summary'),
+  NavigationTabData(icon: const Icon(Icons.wallet), label: "Billetera", route: '/wallet'),
 ];
 
 class _MainAppLayoutState extends State<MainAppLayout> {
@@ -60,17 +44,13 @@ class _MainAppLayoutState extends State<MainAppLayout> {
       router.go(routeConfig.route);
       setState(() => selectedIndex = index);
     }
-
-    //La siguiente linea hace que se baje un modal (si esta abierto) cuando cambias de screen, pero genera un warning molesto "There is nothing to pop..." buscar otra forma o borrarlo
-    //router.pop();
   }
 
   @override
   Widget build(BuildContext context) {
-/*     if (GoRouterState.of(context).matchedLocation == '') {
-      setState(() => selectedIndex = 0);
-    }
- */
+    // if (GoRouterState.of(context).matchedLocation == '') {
+    //   setState(() => selectedIndex = 0);
+    // }
 
     return Scaffold(
       extendBody: true,
@@ -96,6 +76,7 @@ class _MainAppLayoutState extends State<MainAppLayout> {
       bottomNavigationBar: AnimatedBottomNavigationBar(
         icons: navigationTabs.map((tab) => (tab.icon as Icon).icon!).toList(),
         activeColor: blue500,
+        inactiveColor: neutral400,
         activeIndex: selectedIndex,
         gapLocation: GapLocation.center,
         notchSmoothness: NotchSmoothness.values[2],
@@ -104,7 +85,6 @@ class _MainAppLayoutState extends State<MainAppLayout> {
         onTap: onItemTapped,
         safeAreaValues: SafeAreaValues(top: true),
         iconSize: 24,
-        inactiveColor: neutral400,
         backgroundColor: white,
       ),
     );
