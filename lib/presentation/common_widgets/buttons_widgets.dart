@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_flow/core/app_theme.dart';
+import 'package:money_flow/core/theme/app_theme.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;

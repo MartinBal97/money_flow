@@ -47,37 +47,37 @@ const Color accentColor = Color(0xFFFAFAFA);
 const Color black = Colors.black;
 const Color white = Colors.white;
 
-const FontWeight b = FontWeight.w700;
-const FontWeight sb = FontWeight.w600;
-const FontWeight m = FontWeight.w500;
-const FontWeight r = FontWeight.w400;
+const FontWeight fwB = FontWeight.w700;
+const FontWeight fwSb = FontWeight.w600;
+const FontWeight fwM = FontWeight.w500;
+const FontWeight fwR = FontWeight.w400;
 
 const Color _seedColor = blue500;
 
 const TextStyle disBigTS =
-    TextStyle(fontFamily: 'SF Pro Display', fontSize: 32, fontWeight: b, letterSpacing: -0.4, height: 0);
+    TextStyle(fontFamily: 'SF Pro Display', fontSize: 32, fontWeight: fwB, letterSpacing: -0.4, height: 0);
 const TextStyle disLargeTS =
-    TextStyle(fontFamily: 'SF Pro Display', fontSize: 24, fontWeight: sb, letterSpacing: -0.4, height: 0);
+    TextStyle(fontFamily: 'SF Pro Display', fontSize: 24, fontWeight: fwSb, letterSpacing: -0.4, height: 0);
 const TextStyle titleTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 20, fontWeight: b, letterSpacing: -0.4, height: 0);
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 20, fontWeight: fwB, letterSpacing: -0.4, height: 0);
 const TextStyle secHeaderTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 17, fontWeight: sb, letterSpacing: -0.4, height: 0);
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 17, fontWeight: fwSb, letterSpacing: -0.4, height: 0);
 const TextStyle subtitleTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: sb, letterSpacing: -0.4, height: 0);
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: fwSb, letterSpacing: -0.4, height: 0);
 const TextStyle bodyLargeBTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: b, letterSpacing: -0.4, height: 0);
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: fwB, letterSpacing: -0.4, height: 0);
 const TextStyle bodyLargeRTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: r, letterSpacing: -0.4, height: 0);
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: fwR, letterSpacing: -0.4, height: 0);
 const TextStyle bodySmallBTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: b, letterSpacing: -0.4, height: 0);
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: fwB, letterSpacing: -0.4, height: 0);
 const TextStyle bodySmallRTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: r, letterSpacing: -0.4, height: 0);
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: fwR, letterSpacing: -0.4, height: 0);
 const TextStyle buttonsTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 17, fontWeight: r, letterSpacing: -0.4, height: 0);
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 17, fontWeight: fwR, letterSpacing: -0.4, height: 0);
 const TextStyle largeRegularTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: m, letterSpacing: -0.4, height: 0);
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: fwM, letterSpacing: -0.4, height: 0);
 const TextStyle smallRegularTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: r, letterSpacing: -0.4, height: 0);
+    TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: fwR, letterSpacing: -0.4, height: 0);
 
 const TextTheme _textTheme = TextTheme(
   displayLarge: disBigTS,

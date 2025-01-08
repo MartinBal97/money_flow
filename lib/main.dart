@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money_flow/core/app_theme.dart';
-import 'package:money_flow/core/router.dart';
+import 'package:money_flow/core/router/router.dart';
+import 'package:money_flow/core/theme/app_theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

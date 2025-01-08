@@ -2,7 +2,8 @@ import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:money_flow/core/app_theme.dart';
+import 'package:money_flow/core/constans/app_sizes.dart';
+import 'package:money_flow/core/theme/app_theme.dart';
 import 'package:money_flow/presentation/common_widgets/buttons_widgets.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,13 +36,13 @@ class HomeScreenState extends State<HomeScreen> {
                 children: [
                   // Encabezado
                   _buildHeader(),
-                  const SizedBox(height: 8),
+                  gapH8,
                   // Card de ingresos
                   _buildIncomeCard(),
-                  const SizedBox(height: 16),
+                  gapH16,
                   // Botones de acciones
                   _buildActionButtons(),
-                  const SizedBox(height: 24),
+                  gapH24,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -52,28 +53,33 @@ class HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  gapH8,
 
-                  ListTile(
-                    contentPadding: EdgeInsets.all(0),
-                    title: Text('Supermercado', style: subtitleTS),
-                    subtitle: Text('15 de Noviembre', style: smallRegularTS.copyWith(color: neutral400)),
-                    trailing: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('-\$1.500,00', style: subtitleTS.copyWith(color: error500)),
-                        const SizedBox(height: 5),
-                        Text('10:56', style: smallRegularTS.copyWith(color: neutral400)),
-                      ],
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: neutral300, width: 1.5),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    leading: CircleAvatar(
-                      radius: 20,
-                      backgroundColor: blue200,
-                      child: Icon(Icons.shopping_cart, color: blue500, size: 16),
+                    child: ListTile(
+                      title: Text('Supermercado', style: subtitleTS),
+                      subtitle: Text('15 de Noviembre', style: smallRegularTS.copyWith(color: neutral400)),
+                      trailing: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('-\$1.500,00', style: subtitleTS.copyWith(color: error500)),
+                          gapH4,
+                          Text('10:56', style: smallRegularTS.copyWith(color: neutral400)),
+                        ],
+                      ),
+                      leading: CircleAvatar(
+                        radius: 20,
+                        backgroundColor: blue200,
+                        child: Icon(Icons.shopping_cart, color: blue500, size: 16),
+                      ),
                     ),
                   ),
-
+                  gapH16,
                   Text('Tus metas', style: subtitleTS),
 
                   /* Card(
@@ -88,7 +94,7 @@ class HomeScreenState extends State<HomeScreen> {
                               Text('20.000,00', style: bodySmallBTS),
                             ],
                           ),
-                          SizedBox(height: 8),
+                           gapH8,
                           CircularProgressIndicator(value: 0.6),
                         ],
                       ),
@@ -162,7 +168,7 @@ class HomeScreenState extends State<HomeScreen> {
                 DropdownButton<String>(
                   value: dropDownValue,
                   borderRadius: BorderRadius.circular(16),
-                  underline: SizedBox(),
+                  underline: const SizedBox(),
                   icon: Icon(CupertinoIcons.chevron_down, color: blue500, size: 15),
                   onChanged: (String? newValue) {
                     setState(() => dropDownValue = newValue!);
@@ -173,7 +179,7 @@ class HomeScreenState extends State<HomeScreen> {
                           value: value,
                           child: Text(
                             value,
-                            style: bodyLargeBTS.copyWith(color: blue500, fontWeight: sb),
+                            style: bodyLargeBTS.copyWith(color: blue500, fontWeight: fwSb),
                           ),
                         ),
                       )
@@ -193,7 +199,7 @@ class HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            gapH16,
             //Tabs de "Gastos" e "Ingresos"
             AnimatedToggleSwitch<bool>.size(
               height: 35,
@@ -205,7 +211,7 @@ class HomeScreenState extends State<HomeScreen> {
                 local.value ? 'Ingresos' : 'Gastos',
                 style: bodySmallRTS.copyWith(
                   color: Color.lerp(blue500, white, local.animationValue),
-                  fontWeight: FontWeight.lerp(r, sb, local.animationValue),
+                  fontWeight: FontWeight.lerp(fwR, fwSb, local.animationValue),
                 ),
               ),
               borderWidth: 3,
