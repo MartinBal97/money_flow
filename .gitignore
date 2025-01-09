@@ -44,4 +44,6 @@ app.*.map.json
 /test_results/ 
 
 # Do NOT include sensitive information
-.env 
+*.env
+lib/firebase_options.dart
+firebase.json
