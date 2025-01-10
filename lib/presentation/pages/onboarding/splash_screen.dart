@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -29,7 +30,7 @@ class SplashScreenState extends State<SplashScreen> with SingleTickerProviderSta
   }
 
   void _navigateToHome(BuildContext context) {
-    context.go('/home');
+    context.go(AppRoutes.authentication);
   }
 
   @override

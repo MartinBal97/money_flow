@@ -30,7 +30,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(Sizes.p16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -82,7 +82,7 @@ class HomeScreenState extends State<HomeScreen> {
                   gapH16,
                   Text('Tus metas', style: subtitleTS),
 
-                  /* Card(
+                  /*  Card(
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
@@ -90,12 +90,12 @@ class HomeScreenState extends State<HomeScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Meta 1', style: bodySmallBTS),
-                              Text('20.000,00', style: bodySmallBTS),
+                              Text('Vacaciones', style: bodySmallBTS),
+                              Text('\$15.000,00', style: bodySmallBTS),
                             ],
                           ),
-                           gapH8,
-                          CircularProgressIndicator(value: 0.6),
+                          gapH8,
+                          LinearProgressIndicator(value: 0.6),
                         ],
                       ),
                     ),

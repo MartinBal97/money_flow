@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_pocket/core/router/routes.dart';
+import 'package:my_pocket/presentation/pages/auth/authentication_screen.dart';
 import 'package:my_pocket/presentation/pages/goals/goals_screen.dart';
 import 'package:my_pocket/presentation/pages/home/home_screen.dart';
 import 'package:my_pocket/presentation/pages/main_app_layout.dart';
@@ -18,6 +19,10 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.authentication,
+      builder: (context, state) => const AuthenticationScreen(),
     ),
     ShellRoute(
       pageBuilder: (context, state, child) {
