@@ -5,18 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "money_flow",
+      "name": "my_pocket",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "money_flow (profile mode)",
+      "name": "my_pocket (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "money_flow (release mode)",
+      "name": "my_pocket (release mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"

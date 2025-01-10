@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:money_flow/core/router/routes.dart';
-import 'package:money_flow/presentation/pages/goals/goals_screen.dart';
-import 'package:money_flow/presentation/pages/home/home_screen.dart';
-import 'package:money_flow/presentation/pages/main_app_layout.dart';
-import 'package:money_flow/presentation/pages/onboarding/splash_screen.dart';
-import 'package:money_flow/presentation/pages/summary/summary_screen.dart';
-import 'package:money_flow/presentation/pages/wallet/wallet_screen.dart';
+import 'package:my_pocket/core/router/routes.dart';
+import 'package:my_pocket/presentation/pages/auth/authentication_screen.dart';
+import 'package:my_pocket/presentation/pages/goals/goals_screen.dart';
+import 'package:my_pocket/presentation/pages/home/home_screen.dart';
+import 'package:my_pocket/presentation/pages/main_app_layout.dart';
+import 'package:my_pocket/presentation/pages/onboarding/splash_screen.dart';
+import 'package:my_pocket/presentation/pages/summary/summary_screen.dart';
+import 'package:my_pocket/presentation/pages/wallet/wallet_screen.dart';
 
 const Duration duration = Duration(milliseconds: 200);
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -18,6 +19,10 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.authentication,
+      builder: (context, state) => const AuthenticationScreen(),
     ),
     ShellRoute(
       pageBuilder: (context, state, child) {

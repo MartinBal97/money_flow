@@ -2,8 +2,8 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:money_flow/core/router/router.dart';
-import 'package:money_flow/core/theme/app_theme.dart';
+import 'package:my_pocket/core/router/router.dart';
+import 'package:my_pocket/core/theme/app_theme.dart';
 
 class NavigationTabData {
   final Widget icon;

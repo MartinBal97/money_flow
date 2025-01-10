@@ -4,4 +4,5 @@ class AppRoutes {
   static const goals = '/goals';
   static const summary = '/summary';
   static const wallet = '/wallet';
+  static const authentication = '/authentication';
 }

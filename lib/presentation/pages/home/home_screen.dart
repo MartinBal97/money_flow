@@ -2,9 +2,9 @@ import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:money_flow/core/constans/app_sizes.dart';
-import 'package:money_flow/core/theme/app_theme.dart';
-import 'package:money_flow/presentation/common_widgets/buttons_widgets.dart';
+import 'package:my_pocket/core/constans/app_sizes.dart';
+import 'package:my_pocket/core/theme/app_theme.dart';
+import 'package:my_pocket/presentation/common_widgets/buttons_widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,7 +30,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(Sizes.p16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -82,7 +82,7 @@ class HomeScreenState extends State<HomeScreen> {
                   gapH16,
                   Text('Tus metas', style: subtitleTS),
 
-                  /* Card(
+                  /*  Card(
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
@@ -90,12 +90,12 @@ class HomeScreenState extends State<HomeScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Meta 1', style: bodySmallBTS),
-                              Text('20.000,00', style: bodySmallBTS),
+                              Text('Vacaciones', style: bodySmallBTS),
+                              Text('\$15.000,00', style: bodySmallBTS),
                             ],
                           ),
-                           gapH8,
-                          CircularProgressIndicator(value: 0.6),
+                          gapH8,
+                          LinearProgressIndicator(value: 0.6),
                         ],
                       ),
                     ),
