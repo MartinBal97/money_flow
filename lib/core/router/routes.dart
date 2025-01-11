@@ -5,4 +5,6 @@ class AppRoutes {
   static const summary = '/summary';
   static const wallet = '/wallet';
   static const authentication = '/authentication';
+  static const signin = '/signin';
+  static const signup = '/signiup';
 }

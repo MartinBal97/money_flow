@@ -99,7 +99,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             backGroundcolor: blue500,
             textColor: white,
             onTap: () {
-              context.go(AppRoutes.home);
+              context.go('${AppRoutes.authentication}${AppRoutes.signin}');
             },
             text: 'Iniciar sesión',
           ),
@@ -109,7 +109,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             backGroundcolor: aliceBlue,
             textColor: blue500,
             onTap: () {
-              context.go(AppRoutes.home);
+              context.go('${AppRoutes.authentication}${AppRoutes.signup}');
             },
           ),
           gapH48
