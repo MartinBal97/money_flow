@@ -7,7 +7,7 @@ class SummaryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Summary Screen'),
+        title: const Text('Summary Screen'),
       ),
       body: Center(
         child: Column(

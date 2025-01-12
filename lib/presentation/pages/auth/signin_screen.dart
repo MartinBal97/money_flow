@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:my_pocket/core/constans/app_sizes.dart';
+import 'package:my_pocket/core/router/routes.dart';
+import 'package:my_pocket/core/theme/app_theme.dart';
+import 'package:my_pocket/presentation/common_widgets/buttons_widgets.dart';
+import 'package:my_pocket/presentation/common_widgets/inputs_widgets.dart';
+import 'package:my_pocket/presentation/utils/utils.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -8,39 +16,99 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool isPasswordVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Sign In'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
+      backgroundColor: primaryColor,
+      resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: context.heightMq),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
+              child: Form(
+                key: _formKey,
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      gapH64,
+                      SvgPicture.asset('assets/images/icon_app.svg'),
+                      gapH40,
+                      const Text('Iniciar sesión', style: disBigTS),
+                      gapH32,
+                      Text('Correo Electrónico*', style: smallRegularTS.copyWith(color: neutral800)),
+                      gapH8,
+                      CustomTextField(
+                        hintText: "ejemplo@gmail.com",
+                        keyboardType: TextInputType.emailAddress,
+                        controller: emailController,
+                        validator: emailValidator,
+                      ),
+                      gapH16,
+                      Text('Contraseña', style: smallRegularTS.copyWith(color: neutral800)),
+                      gapH8,
+                      CustomTextField(
+                        hintText: "Contraseña",
+                        isPassword: true,
+                        validator: passwordValidator,
+                        controller: passwordController,
+                        obscureText: !isPasswordVisible,
+                        suffixIcon: isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                        onSuffixTap: () {
+                          setState(() => isPasswordVisible = !isPasswordVisible);
+                        },
+                      ),
+                      gapH16,
+                      MainButton(
+                        text: 'Iniciar sesión',
+                        onTap: () {
+                          if (_formKey.currentState?.validate() ?? false) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Formulario válido')),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Formulario inválido')),
+                            );
+                          }
+                        },
+                      ),
+                      const Spacer(),
+                      SizedBox(
+                        width: double.infinity,
+                        child: GestureDetector(
+                          onTap: () {
+                            context.replace('${AppRoutes.authentication}${AppRoutes.signup}');
+                          },
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text: '¿No tenés una cuenta? ',
+                              style: bodySmallRTS.copyWith(color: neutral500),
+                              children: [
+                                TextSpan(
+                                  text: 'Registrate',
+                                  style: bodySmallBTS.copyWith(color: neutral800),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      gapH24
+                    ],
+                  ),
+                ),
               ),
             ),
-            SizedBox(height: 16.0),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Password',
-                border: OutlineInputBorder(),
-              ),
-              obscureText: true,
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                // Handle sign in
-              },
-              child: Text('Sign In'),
-            ),
-          ],
+          ),
         ),
       ),
     );

@@ -27,10 +27,10 @@ class MainAppLayout extends StatefulWidget {
 }
 
 final navigationTabs = [
-  NavigationTabData(icon: const Icon(CupertinoIcons.house_fill), label: "Home", route: '/home'),
-  NavigationTabData(icon: const Icon(Icons.track_changes), label: "Objetivos", route: '/goals'),
-  NavigationTabData(icon: const Icon(CupertinoIcons.chart_pie_fill), label: "Resumen", route: '/summary'),
-  NavigationTabData(icon: const Icon(Icons.wallet), label: "Billetera", route: '/wallet'),
+  const NavigationTabData(icon: Icon(CupertinoIcons.house_fill), label: "Home", route: '/home'),
+  const NavigationTabData(icon: Icon(Icons.track_changes), label: "Objetivos", route: '/goals'),
+  const NavigationTabData(icon: Icon(CupertinoIcons.chart_pie_fill), label: "Resumen", route: '/summary'),
+  const NavigationTabData(icon: Icon(Icons.wallet), label: "Billetera", route: '/wallet'),
 ];
 
 class _MainAppLayoutState extends State<MainAppLayout> {
@@ -58,7 +58,7 @@ class _MainAppLayoutState extends State<MainAppLayout> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: blue500,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-        child: Icon(CupertinoIcons.add, color: white, size: 30),
+        child: const Icon(CupertinoIcons.add, color: white, size: 30),
         onPressed: () {
           showModalBottomSheet(
             context: context,
@@ -66,7 +66,7 @@ class _MainAppLayoutState extends State<MainAppLayout> {
               return SizedBox(
                 height: context.heightMq * 0.3,
                 width: context.widthMq,
-                child: Center(child: Text('Add something')),
+                child: const Center(child: Text('Add something')),
               );
             },
           );
@@ -83,7 +83,7 @@ class _MainAppLayoutState extends State<MainAppLayout> {
         leftCornerRadius: 24,
         rightCornerRadius: 24,
         onTap: onItemTapped,
-        safeAreaValues: SafeAreaValues(top: true),
+        safeAreaValues: const SafeAreaValues(top: true),
         iconSize: 24,
         backgroundColor: white,
       ),
