@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/presentation/pages/auth/authentication_screen.dart';
+import 'package:my_pocket/presentation/pages/auth/signin_screen.dart';
+import 'package:my_pocket/presentation/pages/auth/signup_screen.dart';
 import 'package:my_pocket/presentation/pages/goals/goals_screen.dart';
 import 'package:my_pocket/presentation/pages/home/home_screen.dart';
 import 'package:my_pocket/presentation/pages/main_app_layout.dart';
@@ -23,6 +25,16 @@ final appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.authentication,
       builder: (context, state) => const AuthenticationScreen(),
+      routes: [
+        GoRoute(
+          path: AppRoutes.signin,
+          builder: (context, state) => const SignInScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.signup,
+          builder: (context, state) => const SignUpScreen(),
+        ),
+      ],
     ),
     ShellRoute(
       pageBuilder: (context, state, child) {
@@ -36,7 +48,7 @@ final appRouter = GoRouter(
           path: AppRoutes.home,
           pageBuilder: (context, state) => CustomTransitionPage<void>(
             key: state.pageKey,
-            child: HomeScreen(),
+            child: const HomeScreen(),
             transitionDuration: duration,
             reverseTransitionDuration: duration,
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -51,7 +63,7 @@ final appRouter = GoRouter(
           path: AppRoutes.goals,
           pageBuilder: (context, state) => CustomTransitionPage<void>(
             key: state.pageKey,
-            child: GoalsScreen(),
+            child: const GoalsScreen(),
             transitionDuration: duration,
             reverseTransitionDuration: duration,
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -66,7 +78,7 @@ final appRouter = GoRouter(
           path: AppRoutes.summary,
           pageBuilder: (context, state) => CustomTransitionPage<void>(
             key: state.pageKey,
-            child: SummaryScreen(),
+            child: const SummaryScreen(),
             transitionDuration: duration,
             reverseTransitionDuration: duration,
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -81,7 +93,7 @@ final appRouter = GoRouter(
           path: AppRoutes.wallet,
           pageBuilder: (context, state) => CustomTransitionPage<void>(
             key: state.pageKey,
-            child: WalletScreen(),
+            child: const WalletScreen(),
             transitionDuration: duration,
             reverseTransitionDuration: duration,
             transitionsBuilder: (context, animation, secondaryAnimation, child) {

@@ -21,10 +21,10 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: AlwaysScrollableScrollPhysics(),
+      physics: const AlwaysScrollableScrollPhysics(),
       child: Stack(
         children: [
-          DecoratedBox(
+          const DecoratedBox(
             decoration: BoxDecoration(color: blue500),
             child: SizedBox(height: 250, width: double.infinity),
           ),
@@ -46,7 +46,7 @@ class HomeScreenState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Transacciones', style: subtitleTS),
+                      const Text('Transacciones', style: subtitleTS),
                       GestureDetector(
                         onTap: () {},
                         child: Text('Ver todos', style: bodySmallRTS.copyWith(color: blue500)),
@@ -61,7 +61,7 @@ class HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: ListTile(
-                      title: Text('Supermercado', style: subtitleTS),
+                      title: const Text('Supermercado', style: subtitleTS),
                       subtitle: Text('15 de Noviembre', style: smallRegularTS.copyWith(color: neutral400)),
                       trailing: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -72,7 +72,7 @@ class HomeScreenState extends State<HomeScreen> {
                           Text('10:56', style: smallRegularTS.copyWith(color: neutral400)),
                         ],
                       ),
-                      leading: CircleAvatar(
+                      leading: const CircleAvatar(
                         radius: 20,
                         backgroundColor: blue200,
                         child: Icon(Icons.shopping_cart, color: blue500, size: 16),
@@ -80,7 +80,7 @@ class HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   gapH16,
-                  Text('Tus metas', style: subtitleTS),
+                  const Text('Tus metas', style: subtitleTS),
 
                   /*  Card(
                     child: Padding(
@@ -124,11 +124,11 @@ class HomeScreenState extends State<HomeScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
-            icon: Icon(CupertinoIcons.bell, color: white),
+            icon: const Icon(CupertinoIcons.bell, color: white),
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.settings, color: white),
+            icon: const Icon(Icons.settings, color: white),
             onPressed: () {},
           ),
         ],
@@ -169,7 +169,7 @@ class HomeScreenState extends State<HomeScreen> {
                   value: dropDownValue,
                   borderRadius: BorderRadius.circular(16),
                   underline: const SizedBox(),
-                  icon: Icon(CupertinoIcons.chevron_down, color: blue500, size: 15),
+                  icon: const Icon(CupertinoIcons.chevron_down, color: blue500, size: 15),
                   onChanged: (String? newValue) {
                     setState(() => dropDownValue = newValue!);
                   },
@@ -190,9 +190,13 @@ class HomeScreenState extends State<HomeScreen> {
             // Cantidad de ingresos
             Row(
               children: [
-                moneyVisibility ? Text('\$20.000,00', style: disBigTS) : Text('\$********', style: disBigTS),
+                moneyVisibility
+                    ? const Text('\$20.000,00', style: disBigTS)
+                    : const Text('\$********', style: disBigTS),
                 IconButton(
-                  icon: moneyVisibility ? Icon(Icons.visibility_outlined) : Icon(Icons.visibility_off_outlined),
+                  icon: moneyVisibility
+                      ? const Icon(Icons.visibility_outlined)
+                      : const Icon(Icons.visibility_off_outlined),
                   onPressed: () {
                     setState(() => moneyVisibility = !moneyVisibility);
                   },
@@ -239,12 +243,12 @@ class HomeScreenState extends State<HomeScreen> {
       children: [
         CustomButton(
           text: 'Gasto',
-          widget: Icon(CupertinoIcons.arrow_down, color: blue500, size: 32),
+          widget: const Icon(CupertinoIcons.arrow_down, color: blue500, size: 32),
           onTap: () {},
         ),
         CustomButton(
           text: 'Ingreso',
-          widget: Icon(CupertinoIcons.arrow_up, color: blue500, size: 32),
+          widget: const Icon(CupertinoIcons.arrow_up, color: blue500, size: 32),
           onTap: () {},
         ),
         CustomButton(

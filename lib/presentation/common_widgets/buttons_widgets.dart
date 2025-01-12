@@ -1,5 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:my_pocket/core/constans/app_sizes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
+
+class MainButton extends StatelessWidget {
+  final String text;
+  final VoidCallback? onTap;
+  final Color? backGroundcolor;
+  final Color? textColor;
+
+  const MainButton({
+    super.key,
+    required this.text,
+    this.onTap,
+    this.backGroundcolor = blue500,
+    this.textColor = white,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          elevation: const WidgetStatePropertyAll(0),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(Sizes.p12)),
+          ),
+          backgroundColor: WidgetStatePropertyAll(backGroundcolor),
+        ),
+        onPressed: onTap,
+        child: Text(text, style: buttonsTS.copyWith(color: textColor)),
+      ),
+    );
+  }
+}
 
 class CustomButton extends StatelessWidget {
   final String text;

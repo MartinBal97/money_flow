@@ -94,19 +94,11 @@ const TextTheme _textTheme = TextTheme(
   labelMedium: smallRegularTS,
 );
 
-ElevatedButtonThemeData _elevatedButtonTheme = ElevatedButtonThemeData(
-  style: ButtonStyle(
-    shape: WidgetStateProperty.all(RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12),
-    )),
-  ),
-);
-
 class AppTheme {
   ThemeData getTheme() => ThemeData(
+        scaffoldBackgroundColor: primaryColor,
         colorSchemeSeed: _seedColor,
         textTheme: _textTheme,
-        //elevatedButtonTheme: _elevatedButtonTheme,
       );
 }
 
