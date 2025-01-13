@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_pocket/core/constans/app_sizes.dart';
 import 'package:my_pocket/core/router/routes.dart';
@@ -21,138 +22,117 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _signUpKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  bool isPasswordVisible = false;
+  final TextEditingController passwordController1 = TextEditingController();
+  final TextEditingController passwordController2 = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final PageController pageController = PageController();
+  bool isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: secondaryColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: const Text('Registro'),
-        iconTheme: const IconThemeData(color: blue500),
-      ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
-          child: Form(
-            key: _signUpKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: context.heightMq / 1.5,
-                  child: PageView(
-                    controller: pageController,
-                    // physics: const NeverScrollableScrollPhysics(),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: context.heightMq),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
+              child: Form(
+                key: _signUpKey,
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _firstStepRegister(),
-                      _secondStepRegister(),
+                      gapH64,
+                      SvgPicture.asset('assets/images/icon_app.svg'),
+                      gapH40,
+                      const Text('Registro', style: disBigTS),
+                      gapH32,
+                      const Text('¿Cuál es tu correo electrónico?', style: subtitleTS),
+                      gapH10,
+                      CustomTextField(
+                        hintText: "ejemplo@gmail.com",
+                        keyboardType: TextInputType.emailAddress,
+                        controller: emailController,
+                        validator: emailValidator,
+                      ),
+                      gapH20,
+                      const Text('Elegí una contraseña', style: subtitleTS),
+                      gapH10,
+                      CustomTextField(
+                        hintText: "Contraseña",
+                        isPassword: true,
+                        validator: passwordValidator,
+                        controller: passwordController1,
+                        obscureText: !isPasswordVisible,
+                        suffixIcon: isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                        onSuffixTap: () {
+                          setState(() => isPasswordVisible = !isPasswordVisible);
+                        },
+                      ),
+                      gapH10,
+                      CustomTextField(
+                        hintText: "Repetir contraseña",
+                        isPassword: true,
+                        validator: passwordValidator,
+                        controller: passwordController2,
+                        obscureText: !isPasswordVisible,
+                        suffixIcon: isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                        onSuffixTap: () {
+                          setState(() => isPasswordVisible = !isPasswordVisible);
+                        },
+                      ),
+                      gapH20,
+                      const Text('¿Cuál es tu nombre?', style: subtitleTS),
+                      gapH10,
+                      CustomTextField(
+                        hintText: "Nombre",
+                        isPassword: false,
+                        validator: nameValidator,
+                        controller: nameController,
+                      ),
+                      const Spacer(),
+                      gapH16,
+                      MainButton(
+                        text: 'Continuar',
+                        onTap: () {
+                          if (_signUpKey.currentState?.validate() ?? false) {
+                            context.go(AppRoutes.home);
+                          }
+                        },
+                      ),
+                      gapH32,
+                      SizedBox(
+                        width: double.infinity,
+                        child: GestureDetector(
+                          onTap: () {
+                            context.replace('${AppRoutes.authentication}${AppRoutes.signin}');
+                          },
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text: '¿Ya tienes una cuenta? ',
+                              style: bodySmallRTS.copyWith(color: neutral500),
+                              children: [
+                                TextSpan(
+                                  text: 'Inicia sesión',
+                                  style: bodySmallBTS.copyWith(color: neutral800),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      gapH24
                     ],
                   ),
                 ),
-                gapH16,
-                MainButton(
-                  text: 'Continuar',
-                  onTap: () {
-                    pageController.nextPage(
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeOutQuad,
-                    );
-                  },
-                ),
-                gapH32,
-                SizedBox(
-                  width: double.infinity,
-                  child: GestureDetector(
-                    onTap: () {
-                      context.replace('${AppRoutes.authentication}${AppRoutes.signin}');
-                    },
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        text: '¿Ya tienes una cuenta? ',
-                        style: bodySmallRTS.copyWith(color: neutral500),
-                        children: [
-                          TextSpan(
-                            text: 'Inicia sesión',
-                            style: bodySmallBTS.copyWith(color: neutral800),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 48),
-              ],
+              ),
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _firstStepRegister() {
-    return Padding(
-      padding: const EdgeInsets.only(top: Sizes.p16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          gapH40,
-          const Text('¿Cuál es tu correo electrónico?', style: subtitleTS),
-          gapH40,
-          Text('Correo Electrónico*', style: smallRegularTS.copyWith(color: neutral800)),
-          gapH8,
-          CustomTextField(
-            hintText: "ejemplo@gmail.com",
-            keyboardType: TextInputType.emailAddress,
-            controller: emailController,
-            validator: emailValidator,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _secondStepRegister() {
-    return Padding(
-      padding: const EdgeInsets.only(top: Sizes.p16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          gapH40,
-          const Text('Elegí una contraseña', style: subtitleTS),
-          gapH40,
-          Text('Contraseña*', style: smallRegularTS.copyWith(color: neutral800)),
-          gapH8,
-          CustomTextField(
-            hintText: "Contraseña",
-            isPassword: true,
-            validator: passwordValidator,
-            controller: passwordController,
-            obscureText: !isPasswordVisible,
-            suffixIcon: isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-            onSuffixTap: () {
-              setState(() => isPasswordVisible = !isPasswordVisible);
-            },
-          ),
-          gapH16,
-          Text('Confirmar contraseña*', style: smallRegularTS.copyWith(color: neutral800)),
-          gapH8,
-          CustomTextField(
-            hintText: "Repetir contraseña",
-            isPassword: true,
-            validator: passwordValidator,
-            controller: passwordController,
-            obscureText: !isPasswordVisible,
-            suffixIcon: isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-            onSuffixTap: () {
-              setState(() => isPasswordVisible = !isPasswordVisible);
-            },
-          ),
-        ],
       ),
     );
   }

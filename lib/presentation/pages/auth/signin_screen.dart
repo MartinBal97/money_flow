@@ -65,7 +65,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           setState(() => isPasswordVisible = !isPasswordVisible);
                         },
                       ),
-                      gapH16,
+                      const Spacer(),
                       MainButton(
                         text: 'Iniciar sesión',
                         onTap: () {
@@ -74,7 +74,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           }
                         },
                       ),
-                      const Spacer(),
+                      gapH32,
                       SizedBox(
                         width: double.infinity,
                         child: GestureDetector(

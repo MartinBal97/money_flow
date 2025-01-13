@@ -19,3 +19,14 @@ String? passwordValidator(String? value) {
   }
   return null;
 }
+
+String? nameValidator(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Por favor, llena este campo.';
+  }
+  final passwordRegex = RegExp(r'^[a-zA-Z]{3,20}$');
+  if (!passwordRegex.hasMatch(value)) {
+    return 'El nombre debe tener de 3 a 20 caracteres';
+  }
+  return null;
+}
