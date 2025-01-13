@@ -4,10 +4,10 @@ import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/presentation/pages/auth/authentication_screen.dart';
 import 'package:my_pocket/presentation/pages/auth/signin_screen.dart';
 import 'package:my_pocket/presentation/pages/auth/signup_screen.dart';
+import 'package:my_pocket/presentation/pages/auth/splash_screen.dart';
 import 'package:my_pocket/presentation/pages/goals/goals_screen.dart';
 import 'package:my_pocket/presentation/pages/home/home_screen.dart';
 import 'package:my_pocket/presentation/pages/main_app_layout.dart';
-import 'package:my_pocket/presentation/pages/onboarding/splash_screen.dart';
 import 'package:my_pocket/presentation/pages/summary/summary_screen.dart';
 import 'package:my_pocket/presentation/pages/wallet/wallet_screen.dart';
 

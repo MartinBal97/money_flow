@@ -18,13 +18,13 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _signInKey = GlobalKey<FormState>();
   bool isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: secondaryColor,
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: ConstrainedBox(
@@ -33,7 +33,7 @@ class _SignInScreenState extends State<SignInScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
               child: Form(
-                key: _formKey,
+                key: _signInKey,
                 child: IntrinsicHeight(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,14 +69,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       MainButton(
                         text: 'Iniciar sesión',
                         onTap: () {
-                          if (_formKey.currentState?.validate() ?? false) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Formulario válido')),
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Formulario inválido')),
-                            );
+                          if (_signInKey.currentState?.validate() ?? false) {
+                            context.go(AppRoutes.home);
                           }
                         },
                       ),
