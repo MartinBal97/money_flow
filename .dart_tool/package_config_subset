@@ -19,9 +19,9 @@ async
 file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/async-2.11.0/
 file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/async-2.11.0/lib/
 bloc
-2.12
-file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/bloc-8.1.4/
-file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/bloc-8.1.4/lib/
+2.14
+file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/bloc-9.0.0/
+file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/bloc-9.0.0/lib/
 boolean_selector
 2.17
 file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/boolean_selector-2.1.1/
@@ -87,9 +87,9 @@ firebase_core_web
 file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/firebase_core_web-2.19.0/
 file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/firebase_core_web-2.19.0/lib/
 flutter_bloc
-2.12
-file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/flutter_bloc-8.1.6/
-file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/flutter_bloc-8.1.6/lib/
+2.14
+file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/flutter_bloc-9.0.0/
+file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/flutter_bloc-9.0.0/lib/
 flutter_dotenv
 2.12
 file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/flutter_dotenv-5.2.1/
@@ -100,8 +100,8 @@ file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/flutter_lints-5.0.0/
 file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/flutter_lints-5.0.0/lib/
 flutter_svg
 3.4
-file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/flutter_svg-2.0.16/
-file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/flutter_svg-2.0.16/lib/
+file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/flutter_svg-2.0.17/
+file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/flutter_svg-2.0.17/lib/
 go_router
 3.4
 file:///Users/martinbalverde/.pub-cache/hosted/pub.dev/go_router-14.6.3/
