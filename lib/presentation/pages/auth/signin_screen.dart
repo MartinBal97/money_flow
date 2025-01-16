@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_pocket/core/constans/app_sizes.dart';
@@ -6,6 +7,7 @@ import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
 import 'package:my_pocket/presentation/common_widgets/buttons_widgets.dart';
 import 'package:my_pocket/presentation/common_widgets/inputs_widgets.dart';
+import 'package:my_pocket/presentation/cubits/cubit/auth_cubit.dart';
 import 'package:my_pocket/presentation/utils/utils.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -20,6 +22,31 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _signInKey = GlobalKey<FormState>();
   bool isPasswordVisible = false;
+
+  void login() {
+    final String email = emailController.text;
+    final String pw = passwordController.text;
+
+    final authCubit = context.read<AuthCubit>();
+
+    if (email.isNotEmpty && pw.isNotEmpty) {
+      authCubit.login(email, pw);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.redAccent,
+          content: Text('Por favor, debes rellenar todos los campos'),
+        ),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

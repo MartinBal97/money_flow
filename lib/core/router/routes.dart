@@ -7,4 +7,5 @@ class AppRoutes {
   static const authentication = '/authentication';
   static const signin = '/signin';
   static const signup = '/signiup';
+  static const loading = '/loading';
 }

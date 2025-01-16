@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_pocket/domain/entities/auth/app_user.dart';
 import 'package:my_pocket/domain/repository/auth_repo.dart';
 
-class FirebaseAuthRepository implements AuthRepo {
+class FirebaseAuthRepo implements AuthRepo {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   @override

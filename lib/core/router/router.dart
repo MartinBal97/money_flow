@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_pocket/core/router/routes.dart';
+import 'package:my_pocket/presentation/cubits/cubit/auth_cubit.dart';
 import 'package:my_pocket/presentation/pages/auth/authentication_screen.dart';
 import 'package:my_pocket/presentation/pages/auth/signin_screen.dart';
 import 'package:my_pocket/presentation/pages/auth/signup_screen.dart';
 import 'package:my_pocket/presentation/pages/auth/splash_screen.dart';
 import 'package:my_pocket/presentation/pages/goals/goals_screen.dart';
 import 'package:my_pocket/presentation/pages/home/home_screen.dart';
+import 'package:my_pocket/presentation/pages/loading_screen.dart';
 import 'package:my_pocket/presentation/pages/main_app_layout.dart';
 import 'package:my_pocket/presentation/pages/summary/summary_screen.dart';
 import 'package:my_pocket/presentation/pages/wallet/wallet_screen.dart';
@@ -21,6 +24,10 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.loading,
+      builder: (context, state) => const LoadingScreen(),
     ),
     GoRoute(
       path: AppRoutes.authentication,
@@ -107,4 +114,27 @@ final appRouter = GoRouter(
       ],
     )
   ],
+  redirect: (context, state) {
+    final authState = context.read<AuthCubit>().state;
+
+    final bool onSplashPage = '${state.uri}' == '/';
+
+    debugPrint(authState.toString());
+
+    if (onSplashPage) {
+      if (authState is AuthLoading) {
+        return AppRoutes.loading;
+      }
+
+      if (authState is Unauthenticated) {
+        return AppRoutes.authentication;
+      }
+
+      if (authState is Authenticated) {
+        return AppRoutes.home;
+      }
+    }
+
+    return null;
+  },
 );

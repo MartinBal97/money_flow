@@ -99,6 +99,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         text: 'Continuar',
                         onTap: () {
                           if (_signUpKey.currentState?.validate() ?? false) {
+                            if (passwordController1.value.text != passwordController2.value.text) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  backgroundColor: Colors.redAccent,
+                                  content: Text('Las contraseñas no coinciden'),
+                                ),
+                              );
+                              return;
+                            }
                             context.go(AppRoutes.home);
                           }
                         },
