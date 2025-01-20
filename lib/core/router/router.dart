@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -115,24 +117,30 @@ final appRouter = GoRouter(
     )
   ],
   redirect: (context, state) {
-    final authState = context.read<AuthCubit>().state;
+    final AuthState authState = context.read<AuthCubit>().state;
 
-    final bool onSplashPage = '${state.uri}' == '/';
+    log(authState.toString());
+    log(state.uri.toString());
 
-    debugPrint(authState.toString());
+    final bool onAuthenticationPage = state.uri.toString() == AppRoutes.authentication;
+    final bool onSignInPage = state.uri.toString() == '${AppRoutes.authentication}${AppRoutes.signin}';
+    final bool onSignUpPage = state.uri.toString() == '${AppRoutes.authentication}${AppRoutes.signup}';
+    //final bool onSplashPage = state.uri.toString() == '/';
 
-    if (onSplashPage) {
-      if (authState is AuthLoading) {
-        return AppRoutes.loading;
-      }
+    if (authState is Unauthenticated && !onAuthenticationPage && !onSignInPage && !onSignUpPage) {
+      return AppRoutes.authentication;
+    }
+    if (authState is Authenticated && (onAuthenticationPage || onSignInPage || onSignUpPage)) {
+      return AppRoutes.home;
+    }
+    // if (authState is AuthLoading) {
+    //   return AppRoutes.loading;
+    // }
 
-      if (authState is Unauthenticated) {
-        return AppRoutes.authentication;
-      }
-
-      if (authState is Authenticated) {
-        return AppRoutes.home;
-      }
+    if (authState is AuthError) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('error')),
+      );
     }
 
     return null;

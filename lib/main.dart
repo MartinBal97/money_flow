@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_pocket/core/constans/firebase_options.dart';
 import 'package:my_pocket/core/router/router.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
 import 'package:my_pocket/data/firebase_auth_repo.dart';
-import 'package:my_pocket/firebase_options.dart';
 import 'package:my_pocket/presentation/cubits/cubit/auth_cubit.dart';
 
 void main() async {
