@@ -1,10 +1,16 @@
+import 'dart:developer';
+
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_pocket/core/constans/app_sizes.dart';
+import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
 import 'package:my_pocket/presentation/common_widgets/buttons_widgets.dart';
+import 'package:my_pocket/presentation/cubits/cubit/auth_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +26,8 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = context.read<AuthCubit>();
+
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       child: Stack(
@@ -81,7 +89,18 @@ class HomeScreenState extends State<HomeScreen> {
                   ),
                   gapH16,
                   const Text('Tus metas', style: subtitleTS),
-
+                  gapH16,
+                  MainButton(
+                    text: 'Cerrar sesion',
+                    onTap: () {
+                      try {
+                        authCubit.logout();
+                        context.go(AppRoutes.authentication);
+                      } catch (e) {
+                        log('message');
+                      }
+                    },
+                  )
                   /*  Card(
                     child: Padding(
                       padding: const EdgeInsets.all(16),

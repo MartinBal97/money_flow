@@ -29,16 +29,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
     final authCubit = context.read<AuthCubit>();
 
-    if (email.isNotEmpty && pw.isNotEmpty) {
-      authCubit.login(email, pw);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          backgroundColor: Colors.redAccent,
-          content: Text('Por favor, debes rellenar todos los campos'),
-        ),
-      );
-    }
+    authCubit.login(email, pw);
   }
 
   @override
@@ -97,7 +88,12 @@ class _SignInScreenState extends State<SignInScreen> {
                         text: 'Iniciar sesión',
                         onTap: () {
                           if (_signInKey.currentState?.validate() ?? false) {
-                            context.go(AppRoutes.home);
+                            try {
+                              login();
+                              context.go(AppRoutes.home);
+                            } catch (e) {
+                              throw Exception(e.toString());
+                            }
                           }
                         },
                       ),

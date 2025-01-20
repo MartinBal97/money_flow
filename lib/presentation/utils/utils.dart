@@ -13,9 +13,9 @@ String? passwordValidator(String? value) {
   if (value == null || value.isEmpty) {
     return 'Por favor, ingresa una contraseña.';
   }
-  final passwordRegex = RegExp(r'^.{4,}$');
+  final passwordRegex = RegExp(r'^.{6,}$');
   if (!passwordRegex.hasMatch(value)) {
-    return 'La contraseña debe tener al menos 4 caracteres.';
+    return 'La contraseña debe tener al menos 6 caracteres.';
   }
   return null;
 }

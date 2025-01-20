@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_pocket/core/constans/app_sizes.dart';
@@ -6,6 +9,7 @@ import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
 import 'package:my_pocket/presentation/common_widgets/buttons_widgets.dart';
 import 'package:my_pocket/presentation/common_widgets/inputs_widgets.dart';
+import 'package:my_pocket/presentation/cubits/cubit/auth_cubit.dart';
 import 'package:my_pocket/presentation/utils/utils.dart';
 
 // const appBarHeight = kToolbarHeight; // Altura estándar del AppBar (56px)
@@ -25,8 +29,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController passwordController1 = TextEditingController();
   final TextEditingController passwordController2 = TextEditingController();
   final TextEditingController nameController = TextEditingController();
-  final PageController pageController = PageController();
   bool isPasswordVisible = false;
+
+  void register() {
+    final String email = emailController.text;
+    final String pw1 = passwordController1.text;
+    final String name = nameController.text;
+
+    final authCubit = context.read<AuthCubit>();
+
+    authCubit.register(email, pw1, name);
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController1.dispose();
+    passwordController2.dispose();
+    nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +130,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               );
                               return;
                             }
-                            context.go(AppRoutes.home);
+                            try {
+                              register();
+                              context.go(AppRoutes.home);
+                            } catch (e) {
+                              log(e.toString());
+                              throw Exception(e);
+                            }
                           }
                         },
                       ),
