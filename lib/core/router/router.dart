@@ -9,6 +9,7 @@ import 'package:my_pocket/presentation/pages/auth/authentication_screen.dart';
 import 'package:my_pocket/presentation/pages/auth/signin_screen.dart';
 import 'package:my_pocket/presentation/pages/auth/signup_screen.dart';
 import 'package:my_pocket/presentation/pages/auth/splash_screen.dart';
+import 'package:my_pocket/presentation/pages/expenses_incomes/expenses_incomes_screen.dart';
 import 'package:my_pocket/presentation/pages/goals/goals_screen.dart';
 import 'package:my_pocket/presentation/pages/home/home_screen.dart';
 import 'package:my_pocket/presentation/pages/loading_screen.dart';
@@ -30,6 +31,21 @@ final appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.loading,
       builder: (context, state) => const LoadingScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.expensesIncomes,
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+
+        // Validar que no sea nulo y obtener los valores
+        final bool isHabitualPayment = extra?['isHabitualPayment'] ?? false;
+        final bool isTypeIncome = extra?['isTypeIncome'] ?? false;
+
+        return ExpensesIncomesScreen(
+          isHabitualPayment: isHabitualPayment,
+          isTypeIncome: isTypeIncome,
+        );
+      },
     ),
     GoRoute(
       path: AppRoutes.authentication,

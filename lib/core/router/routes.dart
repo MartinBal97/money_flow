@@ -8,4 +8,5 @@ class AppRoutes {
   static const signin = '/signin';
   static const signup = '/signiup';
   static const loading = '/loading';
+  static const expensesIncomes = '/expensesIncomes';
 }

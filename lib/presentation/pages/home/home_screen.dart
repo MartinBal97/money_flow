@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_pocket/core/constans/app_sizes.dart';
 import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
+import 'package:my_pocket/domain/entities/app_user.dart';
 import 'package:my_pocket/presentation/common_widgets/buttons_widgets.dart';
 import 'package:my_pocket/presentation/cubits/cubit/auth_cubit.dart';
 
@@ -23,6 +24,10 @@ class HomeScreenState extends State<HomeScreen> {
   bool spendingOrIncomesToggle = false;
   String dropDownValue = 'Efectivo';
   bool moneyVisibility = true;
+
+  late final AuthCubit authCubit = context.read<AuthCubit>();
+
+  late AppUser? currentUser = authCubit.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +158,7 @@ class HomeScreenState extends State<HomeScreen> {
         ],
       ),
       title: Text(
-        'Hola, Martin',
+        'Hola, ${currentUser?.email}',
         style: bodySmallBTS.copyWith(color: white),
       ),
       subtitle: Text(
@@ -184,26 +189,26 @@ class HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                DropdownButton<String>(
-                  value: dropDownValue,
-                  borderRadius: BorderRadius.circular(16),
-                  underline: const SizedBox(),
-                  icon: const Icon(CupertinoIcons.chevron_down, color: blue500, size: 15),
-                  onChanged: (String? newValue) {
-                    setState(() => dropDownValue = newValue!);
-                  },
-                  items: ['Efectivo', 'Tarjeta', 'Otros']
-                      .map(
-                        (value) => DropdownMenuItem(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: bodyLargeBTS.copyWith(color: blue500, fontWeight: fwSb),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ),
+                // DropdownButton<String>(
+                //   value: dropDownValue,
+                //   borderRadius: BorderRadius.circular(16),
+                //   underline: const SizedBox(),
+                //   icon: const Icon(CupertinoIcons.chevron_down, color: blue500, size: 15),
+                //   onChanged: (String? newValue) {
+                //     setState(() => dropDownValue = newValue!);
+                //   },
+                //   items: ['Efectivo', 'Tarjeta', 'Otros']
+                //       .map(
+                //         (value) => DropdownMenuItem(
+                //           value: value,
+                //           child: Text(
+                //             value,
+                //             style: bodyLargeBTS.copyWith(color: blue500, fontWeight: fwSb),
+                //           ),
+                //         ),
+                //       )
+                //       .toList(),
+                // ),
               ],
             ),
             // Cantidad de ingresos
@@ -262,18 +267,33 @@ class HomeScreenState extends State<HomeScreen> {
       children: [
         CustomButton(
           text: 'Gasto',
-          widget: const Icon(CupertinoIcons.arrow_down, color: blue500, size: 32),
-          onTap: () {},
+          widget: const Icon(CupertinoIcons.arrow_up, color: blue500, size: 32),
+          onTap: () {
+            context.push(AppRoutes.expensesIncomes, extra: {
+              'isTypeIncome': false,
+              'isHabitualPayment': false,
+            });
+          },
         ),
         CustomButton(
           text: 'Ingreso',
-          widget: const Icon(CupertinoIcons.arrow_up, color: blue500, size: 32),
-          onTap: () {},
+          widget: const Icon(CupertinoIcons.arrow_down, color: blue500, size: 32),
+          onTap: () {
+            context.push(AppRoutes.expensesIncomes, extra: {
+              'isTypeIncome': true,
+              'isHabitualPayment': false,
+            });
+          },
         ),
         CustomButton(
           text: 'Habitual',
           widget: SvgPicture.asset('assets/images/gastohabitual.svg', width: 32),
-          onTap: () {},
+          onTap: () {
+            context.push(AppRoutes.expensesIncomes, extra: {
+              'isTypeIncome': false,
+              'isHabitualPayment': true,
+            });
+          },
         ),
       ],
     );
