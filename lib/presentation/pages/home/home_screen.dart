@@ -95,6 +95,53 @@ class HomeScreenState extends State<HomeScreen> {
                   gapH16,
                   const Text('Tus metas', style: subtitleTS),
                   gapH16,
+
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      spacing: Sizes.p10,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(Sizes.p16),
+                          width: 237,
+                          decoration: BoxDecoration(
+                            color: white,
+                            borderRadius: BorderRadius.circular(Sizes.p8),
+                          ),
+                          child: Row(
+                            spacing: Sizes.p20,
+                            children: [
+                              Image.asset('assets/images/onboard_1.png', width: 50),
+                              const Text(
+                                'Crea tu meta \nfinanciera',
+                                style: bodyLargeRTS,
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(Sizes.p16),
+                          width: 237,
+                          decoration: BoxDecoration(
+                            color: white,
+                            borderRadius: BorderRadius.circular(Sizes.p8),
+                          ),
+                          child: Row(
+                            spacing: Sizes.p20,
+                            children: [
+                              Image.asset('assets/images/onboard_2.png', width: 50),
+                              const Text(
+                                'Retos \nfinancieros',
+                                style: bodyLargeRTS,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  gapH16,
                   MainButton(
                     text: 'Cerrar sesion',
                     onTap: () {
