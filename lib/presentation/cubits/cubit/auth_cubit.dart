@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:my_pocket/domain/entities/auth/app_user.dart';
+import 'package:my_pocket/domain/entities/app_user.dart';
 import 'package:my_pocket/domain/repository/auth_repo.dart';
 
 part 'auth_state.dart';

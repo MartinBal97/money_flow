@@ -1,4 +1,4 @@
-import 'package:my_pocket/domain/entities/auth/app_user.dart';
+import 'package:my_pocket/domain/entities/app_user.dart';
 
 abstract class AuthRepo {
   Future<AppUser?> loginWithEmailPassword(String email, String password);

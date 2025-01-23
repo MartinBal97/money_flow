@@ -54,30 +54,30 @@ const FontWeight fwR = FontWeight.w400;
 
 const Color _seedColor = blue500;
 
-const TextStyle disBigTS =
-    TextStyle(fontFamily: 'SF Pro Display', fontSize: 32, fontWeight: fwB, letterSpacing: -0.4, height: 0);
-const TextStyle disLargeTS =
-    TextStyle(fontFamily: 'SF Pro Display', fontSize: 24, fontWeight: fwSb, letterSpacing: -0.4, height: 0);
-const TextStyle titleTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 20, fontWeight: fwB, letterSpacing: -0.4, height: 0);
-const TextStyle secHeaderTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 17, fontWeight: fwSb, letterSpacing: -0.4, height: 0);
-const TextStyle subtitleTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: fwSb, letterSpacing: -0.4, height: 0);
-const TextStyle bodyLargeBTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: fwB, letterSpacing: -0.4, height: 0);
-const TextStyle bodyLargeRTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: fwR, letterSpacing: -0.4, height: 0);
-const TextStyle bodySmallBTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: fwB, letterSpacing: -0.4, height: 0);
-const TextStyle bodySmallRTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: fwR, letterSpacing: -0.4, height: 0);
-const TextStyle buttonsTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 17, fontWeight: fwR, letterSpacing: -0.4, height: 0);
-const TextStyle largeRegularTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: fwM, letterSpacing: -0.4, height: 0);
-const TextStyle smallRegularTS =
-    TextStyle(fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: fwR, letterSpacing: -0.4, height: 0);
+const TextStyle disBigTS = TextStyle(
+    fontFamily: 'SF Pro Display', fontSize: 32, fontWeight: fwB, letterSpacing: -0.4, height: 0, color: neutral800);
+const TextStyle disLargeTS = TextStyle(
+    fontFamily: 'SF Pro Display', fontSize: 24, fontWeight: fwSb, letterSpacing: -0.4, height: 0, color: neutral800);
+const TextStyle titleTS = TextStyle(
+    fontFamily: 'SF Pro Text', fontSize: 20, fontWeight: fwB, letterSpacing: -0.4, height: 0, color: neutral800);
+const TextStyle secHeaderTS = TextStyle(
+    fontFamily: 'SF Pro Text', fontSize: 17, fontWeight: fwSb, letterSpacing: -0.4, height: 0, color: neutral800);
+const TextStyle subtitleTS = TextStyle(
+    fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: fwSb, letterSpacing: -0.4, height: 0, color: neutral800);
+const TextStyle bodyLargeBTS = TextStyle(
+    fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: fwB, letterSpacing: -0.4, height: 0, color: neutral800);
+const TextStyle bodyLargeRTS = TextStyle(
+    fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: fwR, letterSpacing: -0.4, height: 0, color: neutral800);
+const TextStyle bodySmallBTS = TextStyle(
+    fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: fwB, letterSpacing: -0.4, height: 0, color: neutral800);
+const TextStyle bodySmallRTS = TextStyle(
+    fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: fwR, letterSpacing: -0.4, height: 0, color: neutral800);
+const TextStyle buttonsTS = TextStyle(
+    fontFamily: 'SF Pro Text', fontSize: 17, fontWeight: fwR, letterSpacing: -0.4, height: 0, color: neutral800);
+const TextStyle largeRegularTS = TextStyle(
+    fontFamily: 'SF Pro Text', fontSize: 16, fontWeight: fwM, letterSpacing: -0.4, height: 0, color: neutral800);
+const TextStyle smallRegularTS = TextStyle(
+    fontFamily: 'SF Pro Text', fontSize: 14, fontWeight: fwR, letterSpacing: -0.4, height: 0, color: neutral800);
 
 const TextTheme _textTheme = TextTheme(
   displayLarge: disBigTS,
@@ -96,9 +96,12 @@ const TextTheme _textTheme = TextTheme(
 
 class AppTheme {
   ThemeData getTheme() => ThemeData(
-        scaffoldBackgroundColor: primaryColor,
+        scaffoldBackgroundColor: secondaryColor,
         colorSchemeSeed: _seedColor,
         textTheme: _textTheme,
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: _seedColor),
+        ),
       );
 }
 

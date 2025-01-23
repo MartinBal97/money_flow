@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_pocket/domain/entities/auth/app_user.dart';
+import 'package:my_pocket/domain/entities/app_user.dart';
 import 'package:my_pocket/domain/repository/auth_repo.dart';
 
 class FirebaseAuthRepo implements AuthRepo {
