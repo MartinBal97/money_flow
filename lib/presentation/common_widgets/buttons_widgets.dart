@@ -71,15 +71,19 @@ class CustomButton extends StatelessWidget {
 }
 
 class CategoryButtonSelection extends StatelessWidget {
-  final TransactionCategory transactionCategory;
+  final TransactionCategory transacCategory;
+  final TransactionCategory transacCategorySelected;
+  final VoidCallback onTap;
 
   const CategoryButtonSelection({
     super.key,
-    required this.transactionCategory,
+    required this.transacCategory,
+    required this.transacCategorySelected,
+    required this.onTap,
   });
 
   List get categoriesOptions {
-    switch (transactionCategory) {
+    switch (transacCategory) {
       case TransactionCategory.food:
         return [Icons.fastfood, 'Comida'];
       case TransactionCategory.transport:
@@ -111,18 +115,25 @@ class CategoryButtonSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      spacing: 8,
-      children: [
-        Container(
-          height: 56,
-          width: 56,
-          decoration: const BoxDecoration(color: blue200, shape: BoxShape.circle),
-          child: Icon(categoriesOptions.first, color: blue500, size: 56 * 0.5),
-        ),
-        Text(categoriesOptions.last, style: smallRegularTS),
-      ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        spacing: 8,
+        children: [
+          Container(
+            height: 56,
+            width: 56,
+            decoration: BoxDecoration(
+              color: blue200,
+              shape: BoxShape.circle,
+              border: transacCategory == transacCategorySelected ? Border.all(color: blue500, width: 3) : null,
+            ),
+            child: Icon(categoriesOptions.first, color: blue500, size: 56 * 0.5),
+          ),
+          Text(categoriesOptions.last, style: smallRegularTS),
+        ],
+      ),
     );
   }
 }
