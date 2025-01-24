@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_pocket/core/constans/app_sizes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
@@ -43,6 +44,20 @@ class _ExpensesIncomesScreenState extends State<ExpensesIncomesScreen> {
             const Text(
               'Ingresá el monto:',
               style: bodyLargeRTS,
+            ),
+            gapH32,
+            const Text(
+              'Total',
+              style: bodySmallRTS,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: '00.00',
+                hintStyle: disBigTS.copyWith(color: neutral300),
+                prefixIcon: const Icon(CupertinoIcons.money_dollar, size: 35, color: black),
+                prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+                contentPadding: EdgeInsets.zero,
+              ),
             ),
             gapH32,
             const Text(

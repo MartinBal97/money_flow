@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +29,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = context.read<AuthCubit>();
+    //* final authCubit = context.read<AuthCubit>();
 
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
@@ -119,40 +117,34 @@ class HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(Sizes.p16),
-                          width: 237,
-                          decoration: BoxDecoration(
-                            color: white,
-                            borderRadius: BorderRadius.circular(Sizes.p8),
-                          ),
-                          child: Row(
-                            spacing: Sizes.p20,
-                            children: [
-                              Image.asset('assets/images/onboard_2.png', width: 50),
-                              const Text(
-                                'Retos \nfinancieros',
-                                style: bodyLargeRTS,
-                              )
-                            ],
+                        Banner(
+                          message: 'Muy pronto',
+                          color: blue600,
+                          location: BannerLocation.topStart,
+                          textStyle: bodyLargeBTS.copyWith(color: white, fontSize: 11),
+                          child: Container(
+                            padding: const EdgeInsets.all(Sizes.p16),
+                            width: 237,
+                            decoration: BoxDecoration(
+                              color: white,
+                              borderRadius: BorderRadius.circular(Sizes.p8),
+                            ),
+                            child: Row(
+                              spacing: Sizes.p20,
+                              children: [
+                                Image.asset('assets/images/onboard_2.png', width: 50),
+                                const Text(
+                                  'Retos \nfinancieros',
+                                  style: bodyLargeRTS,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
 
-                  gapH16,
-                  MainButton(
-                    text: 'Cerrar sesion',
-                    onTap: () {
-                      try {
-                        authCubit.logout();
-                        context.go(AppRoutes.authentication);
-                      } catch (e) {
-                        log('message');
-                      }
-                    },
-                  )
                   /*  Card(
                     child: Padding(
                       padding: const EdgeInsets.all(16),

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_pocket/core/router/router.dart';
+import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
 
 class NavigationTabData {
@@ -27,10 +28,10 @@ class MainAppLayout extends StatefulWidget {
 }
 
 final navigationTabs = [
-  const NavigationTabData(icon: Icon(CupertinoIcons.house_fill), label: "Home", route: '/home'),
-  const NavigationTabData(icon: Icon(Icons.track_changes), label: "Objetivos", route: '/goals'),
-  const NavigationTabData(icon: Icon(CupertinoIcons.chart_pie_fill), label: "Resumen", route: '/summary'),
-  const NavigationTabData(icon: Icon(Icons.wallet), label: "Billetera", route: '/wallet'),
+  const NavigationTabData(icon: Icon(CupertinoIcons.house_fill), label: "Home", route: AppRoutes.home),
+  const NavigationTabData(icon: Icon(Icons.track_changes), label: "Objetivos", route: AppRoutes.goals),
+  const NavigationTabData(icon: Icon(CupertinoIcons.chart_pie_fill), label: "Resumen", route: AppRoutes.summary),
+  const NavigationTabData(icon: Icon(CupertinoIcons.person_fill), label: "Perfile", route: AppRoutes.profile),
 ];
 
 class _MainAppLayoutState extends State<MainAppLayout> {
@@ -48,9 +49,13 @@ class _MainAppLayoutState extends State<MainAppLayout> {
 
   @override
   Widget build(BuildContext context) {
-    // if (GoRouterState.of(context).matchedLocation == '') {
-    //   setState(() => selectedIndex = 0);
-    // }
+    if (GoRouterState.of(context).matchedLocation == AppRoutes.home) setState(() => selectedIndex = 0);
+
+    if (GoRouterState.of(context).matchedLocation == AppRoutes.goals) setState(() => selectedIndex = 1);
+
+    if (GoRouterState.of(context).matchedLocation == AppRoutes.summary) setState(() => selectedIndex = 2);
+
+    if (GoRouterState.of(context).matchedLocation == AppRoutes.profile) setState(() => selectedIndex = 3);
 
     return Scaffold(
       extendBody: true,

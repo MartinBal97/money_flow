@@ -14,8 +14,8 @@ import 'package:my_pocket/presentation/pages/goals/goals_screen.dart';
 import 'package:my_pocket/presentation/pages/home/home_screen.dart';
 import 'package:my_pocket/presentation/pages/loading_screen.dart';
 import 'package:my_pocket/presentation/pages/main_app_layout.dart';
+import 'package:my_pocket/presentation/pages/profile/profile_screen.dart';
 import 'package:my_pocket/presentation/pages/summary/summary_screen.dart';
-import 'package:my_pocket/presentation/pages/wallet/wallet_screen.dart';
 
 const Duration duration = Duration(milliseconds: 200);
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -115,10 +115,10 @@ final appRouter = GoRouter(
           ),
         ),
         GoRoute(
-          path: AppRoutes.wallet,
+          path: AppRoutes.profile,
           pageBuilder: (context, state) => CustomTransitionPage<void>(
             key: state.pageKey,
-            child: const WalletScreen(),
+            child: const ProfileScreen(),
             transitionDuration: duration,
             reverseTransitionDuration: duration,
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
