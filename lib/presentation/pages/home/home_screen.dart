@@ -45,13 +45,10 @@ class HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Encabezado
                   _buildHeader(),
                   gapH8,
-                  // Card de ingresos
                   _buildIncomeCard(),
                   gapH16,
-                  // Botones de acciones
                   _buildActionButtons(),
                   gapH24,
                   Row(
@@ -65,7 +62,6 @@ class HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   gapH8,
-
                   DecoratedBox(
                     decoration: BoxDecoration(
                       border: Border.all(color: neutral300, width: 1.5),
@@ -93,7 +89,6 @@ class HomeScreenState extends State<HomeScreen> {
                   gapH16,
                   const Text('Tus metas', style: subtitleTS),
                   gapH16,
-
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -178,30 +173,14 @@ class HomeScreenState extends State<HomeScreen> {
       leading: CircleAvatar(
         radius: 24,
         backgroundColor: white,
-        child: SvgPicture.asset(
-          'assets/images/coin.svg',
-          width: 35,
-        ),
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(
-            icon: const Icon(CupertinoIcons.bell, color: white),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings, color: white),
-            onPressed: () {},
-          ),
-        ],
+        child: SvgPicture.asset('assets/images/coin.svg', width: 35),
       ),
       title: Text(
         'Hola, ${currentUser?.email}',
         style: bodySmallBTS.copyWith(color: white),
       ),
       subtitle: Text(
-        'Nivel 2',
+        'Nivel 2', //TODO: Cambiar por el nivel del usuario
         style: bodySmallRTS.copyWith(color: white),
       ),
     );
@@ -228,26 +207,6 @@ class HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                // DropdownButton<String>(
-                //   value: dropDownValue,
-                //   borderRadius: BorderRadius.circular(16),
-                //   underline: const SizedBox(),
-                //   icon: const Icon(CupertinoIcons.chevron_down, color: blue500, size: 15),
-                //   onChanged: (String? newValue) {
-                //     setState(() => dropDownValue = newValue!);
-                //   },
-                //   items: ['Efectivo', 'Tarjeta', 'Otros']
-                //       .map(
-                //         (value) => DropdownMenuItem(
-                //           value: value,
-                //           child: Text(
-                //             value,
-                //             style: bodyLargeBTS.copyWith(color: blue500, fontWeight: fwSb),
-                //           ),
-                //         ),
-                //       )
-                //       .toList(),
-                // ),
               ],
             ),
             // Cantidad de ingresos
@@ -303,38 +262,55 @@ class HomeScreenState extends State<HomeScreen> {
   Widget _buildActionButtons() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      spacing: Sizes.p16,
       children: [
-        CustomButton(
-          text: 'Gasto',
-          widget: const Icon(CupertinoIcons.arrow_up, color: blue500, size: 32),
-          onTap: () {
-            context.push(AppRoutes.expensesIncomes, extra: {
-              'isTypeIncome': false,
-              'isHabitualPayment': false,
-            });
-          },
+        Expanded(
+          child: CustomButton(
+            text: 'Añadir gasto',
+            widget: const Icon(CupertinoIcons.arrow_up, color: blue500, size: 32),
+            onTap: () {
+              context.push(AppRoutes.expensesIncomes, extra: {
+                'isTypeIncome': false,
+              });
+            },
+          ),
         ),
-        CustomButton(
-          text: 'Ingreso',
-          widget: const Icon(CupertinoIcons.arrow_down, color: blue500, size: 32),
-          onTap: () {
-            context.push(AppRoutes.expensesIncomes, extra: {
-              'isTypeIncome': true,
-              'isHabitualPayment': false,
-            });
-          },
-        ),
-        CustomButton(
-          text: 'Habitual',
-          widget: SvgPicture.asset('assets/images/gastohabitual.svg', width: 32),
-          onTap: () {
-            context.push(AppRoutes.expensesIncomes, extra: {
-              'isTypeIncome': false,
-              'isHabitualPayment': true,
-            });
-          },
+        Expanded(
+          child: CustomButton(
+            text: 'Añadir ingreso',
+            widget: const Icon(CupertinoIcons.arrow_down, color: blue500, size: 32),
+            onTap: () {
+              context.push(AppRoutes.expensesIncomes, extra: {
+                'isTypeIncome': true,
+              });
+            },
+          ),
         ),
       ],
     );
   }
 }
+
+
+
+
+ // DropdownButton<String>(
+                //   value: dropDownValue,
+                //   borderRadius: BorderRadius.circular(16),
+                //   underline: const SizedBox(),
+                //   icon: const Icon(CupertinoIcons.chevron_down, color: blue500, size: 15),
+                //   onChanged: (String? newValue) {
+                //     setState(() => dropDownValue = newValue!);
+                //   },
+                //   items: ['Efectivo', 'Tarjeta', 'Otros']
+                //       .map(
+                //         (value) => DropdownMenuItem(
+                //           value: value,
+                //           child: Text(
+                //             value,
+                //             style: bodyLargeBTS.copyWith(color: blue500, fontWeight: fwSb),
+                //           ),
+                //         ),
+                //       )
+                //       .toList(),
+                // ),

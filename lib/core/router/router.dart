@@ -38,13 +38,9 @@ final appRouter = GoRouter(
         final extra = state.extra as Map<String, dynamic>?;
 
         // Validar que no sea nulo y obtener los valores
-        final bool isHabitualPayment = extra?['isHabitualPayment'] ?? false;
         final bool isTypeIncome = extra?['isTypeIncome'] ?? false;
 
-        return ExpensesIncomesScreen(
-          isHabitualPayment: isHabitualPayment,
-          isTypeIncome: isTypeIncome,
-        );
+        return ExpensesIncomesScreen(isTypeIncome: isTypeIncome);
       },
     ),
     GoRoute(

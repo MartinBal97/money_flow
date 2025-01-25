@@ -1,21 +1,19 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_pocket/core/constans/app_sizes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
 import 'package:my_pocket/domain/entities/transactions.dart';
 import 'package:my_pocket/presentation/common_widgets/buttons_widgets.dart';
+import 'package:my_pocket/presentation/cubits/cubit/auth_cubit.dart';
 import 'package:my_pocket/presentation/utils/utils.dart';
 
 class ExpensesIncomesScreen extends StatefulWidget {
   final bool isTypeIncome;
-  final bool isHabitualPayment;
 
   const ExpensesIncomesScreen({
     super.key,
     required this.isTypeIncome,
-    required this.isHabitualPayment,
   });
 
   @override
@@ -30,13 +28,12 @@ class _ExpensesIncomesScreenState extends State<ExpensesIncomesScreen> {
 
   TransactionCategory categorySelected = TransactionCategory.others;
 
-  void onSubmitForm() {
-    if (_formKeyExpensesIncomes.currentState!.validate()) {
-      final double money = double.parse(moneyController.value.text);
-      final String date = dateController.value.text;
-
-      log('Money: $money, Date: $date, Category: $categorySelected');
-    }
+  @override
+  void initState() {
+    super.initState();
+    //* Set the current date in the dateController
+    dateController.text =
+        '${DateTime.now().day}/${DateTime.now().month < 10 ? '0${DateTime.now().month}' : DateTime.now().month}/${DateTime.now().year}';
   }
 
   @override
@@ -48,11 +45,29 @@ class _ExpensesIncomesScreenState extends State<ExpensesIncomesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = context.read<AuthCubit>().currentUser;
+
+    void onSubmitForm() {
+      if (_formKeyExpensesIncomes.currentState!.validate()) {
+        final String moneyS = moneyController.text.replaceAll(',', '.');
+        final double money = double.parse(moneyS);
+        final String date = dateController.value.text;
+
+        final Transactions userTransaction = Transactions(
+          uid: 'asdfasf',
+          userIdTransaction: currentUser!.uid,
+          quantity: money,
+          transactionCategory: categorySelected,
+          transactionType: widget.isTypeIncome ? TransactionType.income : TransactionType.expense,
+          whenTransaction: DateTime.parse(date),
+          createdAt: DateTime.now(),
+        );
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: widget.isHabitualPayment
-            ? const Text('Añadir habitual')
-            : Text(widget.isTypeIncome ? 'Añadir ingreso' : 'Añadir gasto'),
+        title: Text(widget.isTypeIncome ? 'Añadir ingreso' : 'Añadir gasto'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -97,73 +112,14 @@ class _ExpensesIncomesScreenState extends State<ExpensesIncomesScreen> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     spacing: 10,
-                    children: [
-                      CategoryButtonSelection(
-                        transacCategory: TransactionCategory.others,
+                    children: List.generate(
+                      TransactionCategory.values.length,
+                      (index) => CategoryButtonSelection(
+                        transacCategory: TransactionCategory.values[index],
                         transacCategorySelected: categorySelected,
-                        onTap: () => setState(() => categorySelected = TransactionCategory.others),
+                        onTap: () => setState(() => categorySelected = TransactionCategory.values[index]),
                       ),
-                      CategoryButtonSelection(
-                        transacCategory: TransactionCategory.food,
-                        transacCategorySelected: categorySelected,
-                        onTap: () => setState(() => categorySelected = TransactionCategory.food),
-                      ),
-                      CategoryButtonSelection(
-                        transacCategory: TransactionCategory.transport,
-                        transacCategorySelected: categorySelected,
-                        onTap: () => setState(() => categorySelected = TransactionCategory.transport),
-                      ),
-                      CategoryButtonSelection(
-                        transacCategory: TransactionCategory.car,
-                        transacCategorySelected: categorySelected,
-                        onTap: () => setState(() => categorySelected = TransactionCategory.car),
-                      ),
-                      CategoryButtonSelection(
-                        transacCategory: TransactionCategory.home,
-                        transacCategorySelected: categorySelected,
-                        onTap: () => setState(() => categorySelected = TransactionCategory.home),
-                      ),
-                      CategoryButtonSelection(
-                        transacCategory: TransactionCategory.market,
-                        transacCategorySelected: categorySelected,
-                        onTap: () => setState(() => categorySelected = TransactionCategory.market),
-                      ),
-                      CategoryButtonSelection(
-                        transacCategory: TransactionCategory.health,
-                        transacCategorySelected: categorySelected,
-                        onTap: () => setState(() => categorySelected = TransactionCategory.health),
-                      ),
-                      CategoryButtonSelection(
-                        transacCategory: TransactionCategory.education,
-                        transacCategorySelected: categorySelected,
-                        onTap: () => setState(() => categorySelected = TransactionCategory.education),
-                      ),
-                      CategoryButtonSelection(
-                        transacCategory: TransactionCategory.sport,
-                        transacCategorySelected: categorySelected,
-                        onTap: () => setState(() => categorySelected = TransactionCategory.sport),
-                      ),
-                      CategoryButtonSelection(
-                        transacCategory: TransactionCategory.clothing,
-                        transacCategorySelected: categorySelected,
-                        onTap: () => setState(() => categorySelected = TransactionCategory.clothing),
-                      ),
-                      CategoryButtonSelection(
-                        transacCategory: TransactionCategory.rent,
-                        transacCategorySelected: categorySelected,
-                        onTap: () => setState(() => categorySelected = TransactionCategory.rent),
-                      ),
-                      CategoryButtonSelection(
-                        transacCategory: TransactionCategory.salary,
-                        transacCategorySelected: categorySelected,
-                        onTap: () => setState(() => categorySelected = TransactionCategory.salary),
-                      ),
-                      CategoryButtonSelection(
-                        transacCategory: TransactionCategory.ocio,
-                        transacCategorySelected: categorySelected,
-                        onTap: () => setState(() => categorySelected = TransactionCategory.ocio),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
                 gapH32,
@@ -188,11 +144,7 @@ class _ExpensesIncomesScreenState extends State<ExpensesIncomesScreen> {
                   ),
                 ),
                 gapH64,
-                MainButton(
-                    text: 'Añadir',
-                    onTap: () {
-                      onSubmitForm();
-                    }),
+                MainButton(text: 'Añadir', onTap: () => onSubmitForm()),
                 gapH64,
               ],
             ),
