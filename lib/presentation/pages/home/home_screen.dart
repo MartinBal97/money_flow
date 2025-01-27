@@ -9,7 +9,7 @@ import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
 import 'package:my_pocket/domain/entities/app_user.dart';
 import 'package:my_pocket/presentation/common_widgets/buttons_widgets.dart';
-import 'package:my_pocket/presentation/cubits/cubit/auth_cubit.dart';
+import 'package:my_pocket/presentation/cubits/cubit/auth/auth_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +24,7 @@ class HomeScreenState extends State<HomeScreen> {
   bool moneyVisibility = true;
 
   late final AuthCubit authCubit = context.read<AuthCubit>();
+  //late final ProfileCubit profileCubit = context.read<ProfileCubit>();
 
   late AppUser? currentUser = authCubit.currentUser;
 
@@ -176,7 +177,7 @@ class HomeScreenState extends State<HomeScreen> {
         child: SvgPicture.asset('assets/images/coin.svg', width: 35),
       ),
       title: Text(
-        'Hola, ${currentUser?.email}',
+        'Hola, ${currentUser?.name}',
         style: bodySmallBTS.copyWith(color: white),
       ),
       subtitle: Text(

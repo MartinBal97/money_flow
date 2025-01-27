@@ -5,7 +5,9 @@ import 'package:my_pocket/core/constans/firebase_options.dart';
 import 'package:my_pocket/core/router/router.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
 import 'package:my_pocket/data/firebase_auth_repo.dart';
-import 'package:my_pocket/presentation/cubits/cubit/auth_cubit.dart';
+import 'package:my_pocket/data/firebase_profile_repo.dart';
+import 'package:my_pocket/presentation/cubits/cubit/auth/auth_cubit.dart';
+import 'package:my_pocket/presentation/cubits/cubit/profile/profile_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,11 +20,15 @@ class MainApp extends StatelessWidget {
   MainApp({super.key});
 
   final authRepo = FirebaseAuthRepo();
+  final profileRepo = FirebaseProfileRepo();
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(authRepo: authRepo)..checkAuth(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AuthCubit(authRepo: authRepo)..checkAuth()),
+        BlocProvider(create: (context) => ProfileCubit(profileRepo: profileRepo)),
+      ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'myPocket',

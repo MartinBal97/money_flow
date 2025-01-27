@@ -5,7 +5,7 @@ import 'package:my_pocket/core/constans/app_sizes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
 import 'package:my_pocket/domain/entities/transactions.dart';
 import 'package:my_pocket/presentation/common_widgets/buttons_widgets.dart';
-import 'package:my_pocket/presentation/cubits/cubit/auth_cubit.dart';
+import 'package:my_pocket/presentation/cubits/cubit/auth/auth_cubit.dart';
 import 'package:my_pocket/presentation/utils/utils.dart';
 
 class ExpensesIncomesScreen extends StatefulWidget {
