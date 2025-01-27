@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_pocket/core/router/routes.dart';
-import 'package:my_pocket/presentation/cubits/cubit/auth_cubit.dart';
+import 'package:my_pocket/presentation/cubits/cubit/auth/auth_cubit.dart';
 import 'package:my_pocket/presentation/pages/auth/authentication_screen.dart';
 import 'package:my_pocket/presentation/pages/auth/signin_screen.dart';
 import 'package:my_pocket/presentation/pages/auth/signup_screen.dart';
@@ -38,13 +38,9 @@ final appRouter = GoRouter(
         final extra = state.extra as Map<String, dynamic>?;
 
         // Validar que no sea nulo y obtener los valores
-        final bool isHabitualPayment = extra?['isHabitualPayment'] ?? false;
         final bool isTypeIncome = extra?['isTypeIncome'] ?? false;
 
-        return ExpensesIncomesScreen(
-          isHabitualPayment: isHabitualPayment,
-          isTypeIncome: isTypeIncome,
-        );
+        return ExpensesIncomesScreen(isTypeIncome: isTypeIncome);
       },
     ),
     GoRoute(
@@ -116,18 +112,22 @@ final appRouter = GoRouter(
         ),
         GoRoute(
           path: AppRoutes.profile,
-          pageBuilder: (context, state) => CustomTransitionPage<void>(
-            key: state.pageKey,
-            child: const ProfileScreen(),
-            transitionDuration: duration,
-            reverseTransitionDuration: duration,
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            },
-          ),
+          pageBuilder: (context, state) {
+            final uid = context.read<AuthCubit>().currentUser!.uid;
+
+            return CustomTransitionPage<void>(
+              key: state.pageKey,
+              child: ProfileScreen(uid: uid),
+              transitionDuration: duration,
+              reverseTransitionDuration: duration,
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              },
+            );
+          },
         ),
       ],
     )

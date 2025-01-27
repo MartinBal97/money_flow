@@ -22,9 +22,8 @@ class Transactions {
   final TransactionType transactionType;
   final TransactionCategory transactionCategory;
   final double quantity;
-  final bool habitualPayment;
+  final DateTime whenTransaction;
   final DateTime createdAt;
-  final DateTime updatedAt;
 
   Transactions({
     required this.uid,
@@ -32,9 +31,8 @@ class Transactions {
     required this.transactionType,
     required this.transactionCategory,
     required this.quantity,
-    required this.habitualPayment,
+    required this.whenTransaction,
     required this.createdAt,
-    required this.updatedAt,
   });
 
   Map<String, dynamic> toJson() {
@@ -44,9 +42,8 @@ class Transactions {
       'transactionType': transactionType,
       'transactionCategory': transactionCategory,
       'quantity': quantity,
-      'habitualPayment': habitualPayment,
+      'whenTransaction': whenTransaction,
       'createdAt': createdAt,
-      'updatedAt': updatedAt,
     };
   }
 
@@ -57,9 +54,8 @@ class Transactions {
       transactionType: jsonUser['transactionType'],
       transactionCategory: jsonUser['transactionCategory'],
       quantity: jsonUser['quantity'],
-      habitualPayment: jsonUser['habitualPayment'],
+      whenTransaction: jsonUser['whenTransaction'],
       createdAt: jsonUser['createdAt'],
-      updatedAt: jsonUser['updatedAt'],
     );
   }
 }
