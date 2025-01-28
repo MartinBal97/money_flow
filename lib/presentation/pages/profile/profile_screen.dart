@@ -2,11 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_pocket/core/constans/app_sizes.dart';
 import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
 import 'package:my_pocket/domain/entities/app_user.dart';
+import 'package:my_pocket/domain/entities/level_system.dart';
+import 'package:my_pocket/domain/entities/profile_user.dart';
 import 'package:my_pocket/presentation/cubits/cubit/auth/auth_cubit.dart';
 import 'package:my_pocket/presentation/cubits/cubit/profile/profile_cubit.dart';
 
@@ -36,65 +39,111 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         if (state is ProfileLoaded) {
+          final ProfileUser user = state.profileUser;
+
+          final levelSystem = LevelSystem(user.xp);
+
+          final double progress = levelSystem.xp % 100 / 100;
+
+          log(progress.toString());
+
           return Scaffold(
             appBar: AppBar(
               title: const Text('Profile Screen'),
             ),
             body: Padding(
               padding: const EdgeInsets.all(Sizes.p16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: NetworkImage(state.profileUser.profileImageUrl),
-                  ),
-                  gapH32,
-                  Text(
-                    '${state.profileUser.name}',
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  gapH16,
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(Sizes.p16),
-                      child: Column(
-                        children: [
-                          const Text('Tu nivel'),
-                          RichText(
-                            text: TextSpan(
-                              text: 'Nivel: ',
-                              style: bodyLargeBTS,
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomImageAvatar(imageUrl: user.profileImageUrl, radius: 50),
+                    gapH32,
+                    Text('${user.name}', style: titleTS),
+                    gapH16,
+                    Card(
+                      color: white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(Sizes.p16),
+                        child: Row(
+                          spacing: Sizes.p16,
+                          children: [
+                            DecoratedBox(
+                              decoration: const BoxDecoration(color: secondaryColor, shape: BoxShape.circle),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 55,
+                                    height: 55,
+                                    child: CircularProgressIndicator(
+                                      value: progress,
+                                      strokeWidth: 6.0,
+                                      strokeAlign: BorderSide.strokeAlignOutside,
+                                      strokeCap: StrokeCap.round,
+                                      valueColor: const AlwaysStoppedAnimation<Color>(blue500),
+                                      backgroundColor: secondaryColor,
+                                    ),
+                                  ),
+                                  // CircleAvatar en el centro
+                                  CustomImageAvatar(imageUrl: user.profileImageUrl, radius: 23),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                TextSpan(
-                                  text: '${state.profileUser.xp}',
-                                  style: Theme.of(context).textTheme.headlineMedium,
+                                const Text(
+                                  'Tu nivel',
+                                  style: bodyLargeRTS,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: 'Nivel ${levelSystem.level} ',
+                                    style: disLargeTS,
+                                    children: [
+                                      TextSpan(
+                                        text: '/ Nivel ${levelSystem.level + 1}',
+                                        style: subtitleTS.copyWith(color: neutral300),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      try {
+                    Card(
+                      color: white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(Sizes.p8),
+                        child: Row(
+                          spacing: Sizes.p8,
+                          children: [
+                            SvgPicture.asset('assets/images/coin.svg', width: 20),
+                            Text('Total: ${user.xp} XP', style: bodySmallBTS.copyWith(color: blue500)),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
                         authCubit.logout();
                         context.go(AppRoutes.authentication);
-                      } catch (e) {
-                        log('message');
-                      }
-                    },
-                    child: Text(
-                      'Cerrar sesion',
-                      style: buttonsTS.copyWith(color: error500),
+                      },
+                      child: Text(
+                        'Cerrar sesion',
+                        style: buttonsTS.copyWith(color: error500),
+                      ),
                     ),
-                  ),
-                  gapH64,
-                  gapH64,
-                ],
+                    gapH64,
+                    gapH64,
+                  ],
+                ),
               ),
             ),
           );
@@ -113,5 +162,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
         }
       },
     );
+  }
+}
+
+class CustomImageAvatar extends StatelessWidget {
+  final String? imageUrl;
+  final double? radius;
+
+  const CustomImageAvatar({
+    super.key,
+    this.imageUrl = '',
+    this.radius = 50,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return imageUrl == null || imageUrl!.isEmpty
+        ? CircleAvatar(radius: radius, child: SvgPicture.asset('assets/images/coin.svg'))
+        : CircleAvatar(radius: radius, child: Image.network(imageUrl!));
   }
 }

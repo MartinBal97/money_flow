@@ -140,10 +140,9 @@ class HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-
-                  /*  Card(
+                  /*  const Card(
                     child: Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.all(16),
                       child: Column(
                         children: [
                           Row(
