@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:my_pocket/core/constans/app_sizes.dart';
 import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
-import 'package:my_pocket/domain/entities/app_user.dart';
 import 'package:my_pocket/domain/entities/level_system.dart';
 import 'package:my_pocket/domain/entities/profile_user.dart';
 import 'package:my_pocket/presentation/cubits/cubit/auth/auth_cubit.dart';
@@ -26,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late final authCubit = context.read<AuthCubit>();
   late final profileCubit = context.read<ProfileCubit>();
 
-  late AppUser? currentUser = authCubit.currentUser;
+  //late AppUser? currentUser = authCubit.currentUser;
 
   @override
   void initState() {
@@ -38,14 +35,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
-        if (state is ProfileLoaded) {
+        if (state is ProfileSuccess) {
           final ProfileUser user = state.profileUser;
 
           final levelSystem = LevelSystem(user.xp);
 
           final double progress = levelSystem.xp % 100 / 100;
-
-          log(progress.toString());
 
           return Scaffold(
             appBar: AppBar(
@@ -82,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       strokeWidth: 6.0,
                                       strokeAlign: BorderSide.strokeAlignOutside,
                                       strokeCap: StrokeCap.round,
-                                      valueColor: const AlwaysStoppedAnimation<Color>(blue500),
+                                      valueColor: const AlwaysStoppedAnimation(blue500),
                                       backgroundColor: secondaryColor,
                                     ),
                                   ),

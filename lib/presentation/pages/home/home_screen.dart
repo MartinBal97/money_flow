@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:my_pocket/core/constans/app_sizes.dart';
 import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
-import 'package:my_pocket/domain/entities/app_user.dart';
 import 'package:my_pocket/presentation/common_widgets/buttons_widgets.dart';
 import 'package:my_pocket/presentation/cubits/cubit/auth/auth_cubit.dart';
+import 'package:my_pocket/presentation/cubits/cubit/profile/profile_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,10 +24,17 @@ class HomeScreenState extends State<HomeScreen> {
   String dropDownValue = 'Efectivo';
   bool moneyVisibility = true;
 
-  late final AuthCubit authCubit = context.read<AuthCubit>();
-  //late final ProfileCubit profileCubit = context.read<ProfileCubit>();
+  late final authCubit = context.read<AuthCubit>();
+  late final profileCubit = context.read<ProfileCubit>();
 
-  late AppUser? currentUser = authCubit.currentUser;
+  @override
+  void initState() {
+    if (authCubit.currentUser?.uid != null) {
+      profileCubit.fetchUserProfile(authCubit.currentUser!.uid);
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,123 +49,90 @@ class HomeScreenState extends State<HomeScreen> {
             child: SizedBox(height: 250, width: double.infinity),
           ),
           SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(Sizes.p16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildHeader(),
-                  gapH8,
-                  _buildIncomeCard(),
-                  gapH16,
-                  _buildActionButtons(),
-                  gapH24,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: BlocBuilder<ProfileCubit, ProfileState>(
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.all(Sizes.p16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Transacciones', style: subtitleTS),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Text('Ver todos', style: bodySmallRTS.copyWith(color: blue500)),
-                      )
+                      _buildHeader(),
+                      gapH8,
+                      _buildIncomeCard(),
+                      gapH16,
+                      _buildActionButtons(),
+                      gapH24,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Transacciones', style: subtitleTS),
+                          GestureDetector(
+                            onTap: null,
+                            child: Text('Ver todos', style: bodySmallRTS.copyWith(color: blue500)),
+                          )
+                        ],
+                      ),
+                      gapH8,
+                      _buildTransactionsSummary(),
+                      gapH16,
+                      const Text('Tus metas', style: subtitleTS),
+                      gapH16,
+                      _buildGoalsSummary(),
                     ],
                   ),
-                  gapH8,
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: neutral300, width: 1.5),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: ListTile(
-                      title: const Text('Supermercado', style: subtitleTS),
-                      subtitle: Text('15 de Noviembre', style: smallRegularTS.copyWith(color: neutral400)),
-                      trailing: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text('-\$1.500,00', style: subtitleTS.copyWith(color: error500)),
-                          gapH4,
-                          Text('10:56', style: smallRegularTS.copyWith(color: neutral400)),
-                        ],
-                      ),
-                      leading: const CircleAvatar(
-                        radius: 20,
-                        backgroundColor: blue200,
-                        child: Icon(Icons.shopping_cart, color: blue500, size: 16),
-                      ),
-                    ),
-                  ),
-                  gapH16,
-                  const Text('Tus metas', style: subtitleTS),
-                  gapH16,
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      spacing: Sizes.p10,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(Sizes.p16),
-                          width: 237,
-                          decoration: BoxDecoration(
-                            color: white,
-                            borderRadius: BorderRadius.circular(Sizes.p8),
-                          ),
-                          child: Row(
-                            spacing: Sizes.p20,
-                            children: [
-                              Image.asset('assets/images/onboard_1.png', width: 50),
-                              const Text(
-                                'Crea tu meta \nfinanciera',
-                                style: bodyLargeRTS,
-                              )
-                            ],
-                          ),
-                        ),
-                        Banner(
-                          message: 'Muy pronto',
-                          color: blue600,
-                          location: BannerLocation.topStart,
-                          textStyle: bodyLargeBTS.copyWith(color: white, fontSize: 11),
-                          child: Container(
-                            padding: const EdgeInsets.all(Sizes.p16),
-                            width: 237,
-                            decoration: BoxDecoration(
-                              color: white,
-                              borderRadius: BorderRadius.circular(Sizes.p8),
-                            ),
-                            child: Row(
-                              spacing: Sizes.p20,
-                              children: [
-                                Image.asset('assets/images/onboard_2.png', width: 50),
-                                const Text(
-                                  'Retos \nfinancieros',
-                                  style: bodyLargeRTS,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  /*  const Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Vacaciones', style: bodySmallBTS),
-                              Text('\$15.000,00', style: bodySmallBTS),
-                            ],
-                          ),
-                          gapH8,
-                          LinearProgressIndicator(value: 0.6),
-                        ],
-                      ),
-                    ),
-                  ) */
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  SingleChildScrollView _buildGoalsSummary() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        spacing: Sizes.p10,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(Sizes.p16),
+            width: 237,
+            decoration: BoxDecoration(
+              color: white,
+              borderRadius: BorderRadius.circular(Sizes.p8),
+            ),
+            child: Row(
+              spacing: Sizes.p20,
+              children: [
+                Image.asset('assets/images/onboard_1.png', width: 50),
+                const Text(
+                  'Crea tu meta \nfinanciera',
+                  style: bodyLargeRTS,
+                )
+              ],
+            ),
+          ),
+          Banner(
+            message: '',
+            color: blue600,
+            location: BannerLocation.topStart,
+            textStyle: bodyLargeBTS.copyWith(color: white, fontSize: 11),
+            child: Container(
+              padding: const EdgeInsets.all(Sizes.p16),
+              width: 237,
+              decoration: BoxDecoration(
+                color: white,
+                borderRadius: BorderRadius.circular(Sizes.p8),
+              ),
+              child: Row(
+                spacing: Sizes.p20,
+                children: [
+                  Image.asset('assets/images/onboard_2.png', width: 50),
+                  const Text(
+                    'Retos \nfinancieros',
+                    style: bodyLargeRTS,
+                  )
                 ],
               ),
             ),
@@ -165,6 +140,28 @@ class HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+    /* const Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Vacaciones', style: bodySmallBTS),
+                                  Text('\$15.000,00', style: bodySmallBTS),
+                                ],
+                              ),
+                              gapH8,
+                              LinearProgressIndicator(value: 0.6),
+                            ],
+                          ),
+                        ),
+                      ) */
+  }
+
+  Widget _buildTransactionsSummary() {
+    return const SingleTransactionWidget();
   }
 
   ListTile _buildHeader() {
@@ -176,7 +173,7 @@ class HomeScreenState extends State<HomeScreen> {
         child: SvgPicture.asset('assets/images/coin.svg', width: 35),
       ),
       title: Text(
-        'Hola, ${currentUser?.name}',
+        'Hola, ',
         style: bodySmallBTS.copyWith(color: white),
       ),
       subtitle: Text(
@@ -202,7 +199,9 @@ class HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      spendingOrIncomesToggle ? 'Ingresos noviembre' : 'Gastos noviembre',
+                      spendingOrIncomesToggle
+                          ? 'Ingresos ${DateFormat.MMMM('es_ES').format(DateTime.now())}'
+                          : 'Gastos ${DateFormat.MMMM('es_ES').format(DateTime.now())}',
                       style: subtitleTS.copyWith(color: neutral300),
                     ),
                   ],
@@ -287,6 +286,40 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class SingleTransactionWidget extends StatelessWidget {
+  const SingleTransactionWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border.all(color: neutral300, width: 1.5),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: ListTile(
+        title: const Text('Supermercado', style: subtitleTS),
+        subtitle: Text('15 de Noviembre', style: smallRegularTS.copyWith(color: neutral400)),
+        trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text('-\$1.500,00', style: subtitleTS.copyWith(color: error500)),
+            gapH4,
+            Text('10:56', style: smallRegularTS.copyWith(color: neutral400)),
+          ],
+        ),
+        leading: const CircleAvatar(
+          radius: 20,
+          backgroundColor: blue200,
+          child: Icon(Icons.shopping_cart, color: blue500, size: 16),
+        ),
+      ),
     );
   }
 }
