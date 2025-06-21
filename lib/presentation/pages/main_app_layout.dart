@@ -2,9 +2,11 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_pocket/core/constans/app_sizes.dart';
 import 'package:my_pocket/core/router/router.dart';
 import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
+import 'package:my_pocket/presentation/common_widgets/buttons_widgets.dart';
 
 class NavigationTabData {
   final Widget icon;
@@ -29,8 +31,8 @@ class MainAppLayout extends StatefulWidget {
 
 final navigationTabs = [
   const NavigationTabData(icon: Icon(CupertinoIcons.house_fill), label: "Home", route: AppRoutes.home),
-  const NavigationTabData(icon: Icon(Icons.track_changes), label: "Objetivos", route: AppRoutes.goals),
-  const NavigationTabData(icon: Icon(CupertinoIcons.chart_pie_fill), label: "Resumen", route: AppRoutes.summary),
+  // const NavigationTabData(icon: Icon(Icons.track_changes), label: "Objetivos", route: AppRoutes.goals),
+  // const NavigationTabData(icon: Icon(CupertinoIcons.chart_pie_fill), label: "Resumen", route: AppRoutes.summary),
   const NavigationTabData(icon: Icon(CupertinoIcons.person_fill), label: "Perfile", route: AppRoutes.profile),
 ];
 
@@ -51,9 +53,9 @@ class _MainAppLayoutState extends State<MainAppLayout> {
   Widget build(BuildContext context) {
     if (GoRouterState.of(context).matchedLocation == AppRoutes.home) setState(() => selectedIndex = 0);
 
-    if (GoRouterState.of(context).matchedLocation == AppRoutes.goals) setState(() => selectedIndex = 1);
+    // if (GoRouterState.of(context).matchedLocation == AppRoutes.goals) setState(() => selectedIndex = 1);
 
-    if (GoRouterState.of(context).matchedLocation == AppRoutes.summary) setState(() => selectedIndex = 2);
+    // if (GoRouterState.of(context).matchedLocation == AppRoutes.summary) setState(() => selectedIndex = 2);
 
     if (GoRouterState.of(context).matchedLocation == AppRoutes.profile) setState(() => selectedIndex = 3);
 
@@ -68,11 +70,7 @@ class _MainAppLayoutState extends State<MainAppLayout> {
           showModalBottomSheet(
             context: context,
             builder: (context) {
-              return SizedBox(
-                height: context.heightMq * 0.3,
-                width: context.widthMq,
-                child: const Center(child: Text('Add something')),
-              );
+              return const ModalContentNavigationBar();
             },
           );
         },
@@ -92,6 +90,63 @@ class _MainAppLayoutState extends State<MainAppLayout> {
         iconSize: 24,
         backgroundColor: white,
       ),
+    );
+  }
+}
+
+class ModalContentNavigationBar extends StatelessWidget {
+  const ModalContentNavigationBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final router = appRouter;
+
+    return SizedBox(
+      height: context.heightMq * 0.3,
+      width: context.widthMq,
+      child: Center(
+          child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: Sizes.p24),
+        child: Column(
+          spacing: Sizes.p16,
+          children: [
+            gapH24,
+            const Text('Elige el tipo de movimiento', style: titleTS),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              spacing: Sizes.p16,
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    text: 'Gasto',
+                    widget: const Icon(CupertinoIcons.arrow_up, color: blue500, size: 32),
+                    onTap: () {
+                      router.pop();
+                      context.push(AppRoutes.expensesIncomes, extra: {
+                        'isTypeIncome': false,
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: CustomButton(
+                    text: 'Ingreso',
+                    widget: const Icon(CupertinoIcons.arrow_down, color: blue500, size: 32),
+                    onTap: () {
+                      router.pop();
+                      context.push(AppRoutes.expensesIncomes, extra: {
+                        'isTypeIncome': true,
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      )),
     );
   }
 }
