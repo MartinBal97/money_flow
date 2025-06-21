@@ -44,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Profile Screen'),
+              title: const Text('Perfil'),
             ),
             body: Padding(
               padding: const EdgeInsets.all(Sizes.p16),

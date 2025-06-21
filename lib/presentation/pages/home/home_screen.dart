@@ -1,14 +1,11 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:my_pocket/core/constans/app_sizes.dart';
-import 'package:my_pocket/core/router/routes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
-import 'package:my_pocket/presentation/common_widgets/buttons_widgets.dart';
+import 'package:my_pocket/domain/entities/profile_user.dart';
 import 'package:my_pocket/presentation/cubits/cubit/auth/auth_cubit.dart';
 import 'package:my_pocket/presentation/cubits/cubit/profile/profile_cubit.dart';
 
@@ -26,6 +23,8 @@ class HomeScreenState extends State<HomeScreen> {
 
   late final authCubit = context.read<AuthCubit>();
   late final profileCubit = context.read<ProfileCubit>();
+
+  ProfileUser? user;
 
   @override
   void initState() {
@@ -51,16 +50,18 @@ class HomeScreenState extends State<HomeScreen> {
           SafeArea(
             child: BlocBuilder<ProfileCubit, ProfileState>(
               builder: (context, state) {
+                if (state is ProfileSuccess) {
+                  user = state.profileUser;
+                }
+
                 return Padding(
                   padding: const EdgeInsets.all(Sizes.p16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildHeader(),
+                      _buildHeader(user),
                       gapH8,
                       _buildIncomeCard(),
-                      gapH16,
-                      _buildActionButtons(),
                       gapH24,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,6 +79,7 @@ class HomeScreenState extends State<HomeScreen> {
                       const Text('Tus metas', style: subtitleTS),
                       gapH16,
                       _buildGoalsSummary(),
+                      gapH16,
                     ],
                   ),
                 );
@@ -90,6 +92,25 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   SingleChildScrollView _buildGoalsSummary() {
+    /* const Card(
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Vacaciones', style: bodySmallBTS),
+                Text('\$15.000,00', style: bodySmallBTS),
+              ],
+            ),
+            gapH8,
+            LinearProgressIndicator(value: 0.6),
+          ],
+        ),
+      ),
+    ) */
+    //todo: Si no hay metas disponibles añadir crear una meta
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -114,7 +135,7 @@ class HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Banner(
-            message: '',
+            message: 'Falta poco',
             color: blue600,
             location: BannerLocation.topStart,
             textStyle: bodyLargeBTS.copyWith(color: white, fontSize: 11),
@@ -140,31 +161,38 @@ class HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
-    /* const Card(
-                        child: Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Vacaciones', style: bodySmallBTS),
-                                  Text('\$15.000,00', style: bodySmallBTS),
-                                ],
-                              ),
-                              gapH8,
-                              LinearProgressIndicator(value: 0.6),
-                            ],
-                          ),
-                        ),
-                      ) */
   }
 
   Widget _buildTransactionsSummary() {
-    return const SingleTransactionWidget();
+    //todo: recuperar las transacciones del usuario y mostrarlas
+    const transactions = 0;
+
+    return transactions > 0
+        ? SingleChildScrollView(
+            child: Column(
+              children: List.generate(
+                transactions,
+                (index) => const SingleTransactionWidget(),
+              ),
+            ),
+          )
+        : Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            color: white,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Center(
+                child: Text(
+                  'Aún no registraste movimientos.\n¡Empezá agregando tu primer ingreso o gasto!',
+                  style: bodyLargeRTS.copyWith(color: neutral400),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          );
   }
 
-  ListTile _buildHeader() {
+  ListTile _buildHeader(ProfileUser? user) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: CircleAvatar(
@@ -173,11 +201,11 @@ class HomeScreenState extends State<HomeScreen> {
         child: SvgPicture.asset('assets/images/coin.svg', width: 35),
       ),
       title: Text(
-        'Hola, ',
+        user?.name != null ? 'Hola ${user?.name}' : '',
         style: bodySmallBTS.copyWith(color: white),
       ),
       subtitle: Text(
-        'Nivel 2', //TODO: Cambiar por el nivel del usuario
+        user?.xp != null ? 'Nivel ${user!.xp} - ${user.xp} XP' : '',
         style: bodySmallRTS.copyWith(color: white),
       ),
     );
@@ -257,37 +285,6 @@ class HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  Widget _buildActionButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      spacing: Sizes.p16,
-      children: [
-        Expanded(
-          child: CustomButton(
-            text: 'Añadir gasto',
-            widget: const Icon(CupertinoIcons.arrow_up, color: blue500, size: 32),
-            onTap: () {
-              context.push(AppRoutes.expensesIncomes, extra: {
-                'isTypeIncome': false,
-              });
-            },
-          ),
-        ),
-        Expanded(
-          child: CustomButton(
-            text: 'Añadir ingreso',
-            widget: const Icon(CupertinoIcons.arrow_down, color: blue500, size: 32),
-            onTap: () {
-              context.push(AppRoutes.expensesIncomes, extra: {
-                'isTypeIncome': true,
-              });
-            },
-          ),
-        ),
-      ],
-    );
-  }
 }
 
 class SingleTransactionWidget extends StatelessWidget {
@@ -327,23 +324,23 @@ class SingleTransactionWidget extends StatelessWidget {
 
 
 
- // DropdownButton<String>(
-                //   value: dropDownValue,
-                //   borderRadius: BorderRadius.circular(16),
-                //   underline: const SizedBox(),
-                //   icon: const Icon(CupertinoIcons.chevron_down, color: blue500, size: 15),
-                //   onChanged: (String? newValue) {
-                //     setState(() => dropDownValue = newValue!);
-                //   },
-                //   items: ['Efectivo', 'Tarjeta', 'Otros']
-                //       .map(
-                //         (value) => DropdownMenuItem(
-                //           value: value,
-                //           child: Text(
-                //             value,
-                //             style: bodyLargeBTS.copyWith(color: blue500, fontWeight: fwSb),
-                //           ),
-                //         ),
-                //       )
-                //       .toList(),
-                // ),
+// DropdownButton<String>(
+//   value: dropDownValue,
+//   borderRadius: BorderRadius.circular(16),
+//   underline: const SizedBox(),
+//   icon: const Icon(CupertinoIcons.chevron_down, color: blue500, size: 15),
+//   onChanged: (String? newValue) {
+//     setState(() => dropDownValue = newValue!);
+//   },
+//   items: ['Efectivo', 'Tarjeta', 'Otros']
+//       .map(
+//         (value) => DropdownMenuItem(
+//           value: value,
+//           child: Text(
+//             value,
+//             style: bodyLargeBTS.copyWith(color: blue500, fontWeight: fwSb),
+//           ),
+//         ),
+//       )
+//       .toList(),
+// ),
