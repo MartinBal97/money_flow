@@ -6,10 +6,10 @@ class ProfileInitial extends ProfileState {}
 
 class ProfileLoading extends ProfileState {}
 
-class ProfileLoaded extends ProfileState {
+class ProfileSuccess extends ProfileState {
   final ProfileUser profileUser;
 
-  ProfileLoaded(this.profileUser);
+  ProfileSuccess(this.profileUser);
 }
 
 class ProfileError extends ProfileState {
