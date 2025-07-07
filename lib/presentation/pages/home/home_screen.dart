@@ -6,8 +6,10 @@ import 'package:intl/intl.dart';
 import 'package:my_pocket/core/constans/app_sizes.dart';
 import 'package:my_pocket/core/theme/app_theme.dart';
 import 'package:my_pocket/domain/entities/profile_user.dart';
+import 'package:my_pocket/domain/entities/transactions.dart';
 import 'package:my_pocket/presentation/cubits/cubit/auth/auth_cubit.dart';
 import 'package:my_pocket/presentation/cubits/cubit/profile/profile_cubit.dart';
+import 'package:my_pocket/presentation/cubits/cubit/transaction/transaction_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -211,86 +213,112 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Card _buildIncomeCard() {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      color: white,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      spendingOrIncomesToggle
-                          ? 'Ingresos ${DateFormat.MMMM('es_ES').format(DateTime.now())}'
-                          : 'Gastos ${DateFormat.MMMM('es_ES').format(DateTime.now())}',
-                      style: subtitleTS.copyWith(color: neutral300),
+  BlocBuilder<TransactionCubit, TransactionState> _buildIncomeCard() {
+    return BlocBuilder<TransactionCubit, TransactionState>(
+      builder: (context, state) {
+        if (state is TransactionLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (state is TransactionError) {
+          return const Center(child: Text('Error al cargar las transacciones'));
+        }
+
+        if (state is TransactionSuccess) {
+          final double incomeTransactions = state.transactions.where((transaction) {
+            return transaction.transactionType == TransactionType.income &&
+                transaction.createdAt.month == DateTime.now().month;
+          }).fold(0, (prev, ele) => prev + ele.quantity);
+
+          final double expenseTransactions = state.transactions.where((transaction) {
+            return transaction.transactionType == TransactionType.expense &&
+                transaction.createdAt.month == DateTime.now().month;
+          }).fold(0, (prev, ele) => prev + ele.quantity);
+
+          return Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            color: white,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            spendingOrIncomesToggle
+                                ? 'Ingresos ${DateFormat.MMMM('es_ES').format(DateTime.now())}'
+                                : 'Gastos ${DateFormat.MMMM('es_ES').format(DateTime.now())}',
+                            style: subtitleTS.copyWith(color: neutral300),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  // Cantidad de ingresos
+                  Row(
+                    children: [
+                      moneyVisibility
+                          ? spendingOrIncomesToggle
+                              ? Text('\$$incomeTransactions', style: disBigTS)
+                              : Text('\$$expenseTransactions', style: disBigTS)
+                          : const Text('\$********', style: disBigTS),
+                      IconButton(
+                        icon: moneyVisibility
+                            ? const Icon(Icons.visibility_outlined)
+                            : const Icon(Icons.visibility_off_outlined),
+                        onPressed: () {
+                          setState(() => moneyVisibility = !moneyVisibility);
+                        },
+                      ),
+                    ],
+                  ),
+                  gapH16,
+                  //Tabs de "Gastos" e "Ingresos"
+                  AnimatedToggleSwitch<bool>.size(
+                    height: 35,
+                    current: spendingOrIncomesToggle,
+                    values: const [false, true],
+                    iconOpacity: 1,
+                    indicatorSize: const Size(double.infinity, 30),
+                    customIconBuilder: (context, local, global) => Text(
+                      local.value ? 'Ingresos' : 'Gastos',
+                      style: bodySmallRTS.copyWith(
+                        color: Color.lerp(blue500, white, local.animationValue),
+                        fontWeight: FontWeight.lerp(fwR, fwSb, local.animationValue),
+                      ),
                     ),
-                  ],
-                ),
-              ],
-            ),
-            // Cantidad de ingresos
-            Row(
-              children: [
-                moneyVisibility
-                    ? const Text('\$20.000,00', style: disBigTS)
-                    : const Text('\$********', style: disBigTS),
-                IconButton(
-                  icon: moneyVisibility
-                      ? const Icon(Icons.visibility_outlined)
-                      : const Icon(Icons.visibility_off_outlined),
-                  onPressed: () {
-                    setState(() => moneyVisibility = !moneyVisibility);
-                  },
-                ),
-              ],
-            ),
-            gapH16,
-            //Tabs de "Gastos" e "Ingresos"
-            AnimatedToggleSwitch<bool>.size(
-              height: 35,
-              current: spendingOrIncomesToggle,
-              values: const [false, true],
-              iconOpacity: 1,
-              indicatorSize: const Size(double.infinity, 30),
-              customIconBuilder: (context, local, global) => Text(
-                local.value ? 'Ingresos' : 'Gastos',
-                style: bodySmallRTS.copyWith(
-                  color: Color.lerp(blue500, white, local.animationValue),
-                  fontWeight: FontWeight.lerp(fwR, fwSb, local.animationValue),
-                ),
+                    borderWidth: 3,
+                    iconAnimationType: AnimationType.onSelected,
+                    style: ToggleStyle(
+                      backgroundColor: secondaryColor,
+                      indicatorColor: blue500,
+                      borderRadius: BorderRadius.circular(100),
+                      borderColor: Colors.transparent,
+                    ),
+                    selectedIconScale: 1,
+                    onChanged: (value) {
+                      setState(() => spendingOrIncomesToggle = value);
+                    },
+                  ),
+                ],
               ),
-              borderWidth: 3,
-              iconAnimationType: AnimationType.onSelected,
-              style: ToggleStyle(
-                backgroundColor: secondaryColor,
-                indicatorColor: blue500,
-                borderRadius: BorderRadius.circular(100),
-                borderColor: Colors.transparent,
-              ),
-              selectedIconScale: 1,
-              onChanged: (value) {
-                setState(() => spendingOrIncomesToggle = value);
-              },
             ),
-          ],
-        ),
-      ),
+          );
+        }
+
+        return const SizedBox();
+      },
     );
   }
 }
 
 class SingleTransactionWidget extends StatelessWidget {
-  const SingleTransactionWidget({
-    super.key,
-  });
+  const SingleTransactionWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
