@@ -1,5 +1,13 @@
 enum TransactionType { income, expense }
 
+extension TransactionTypeExtension on TransactionType {
+  String toShortString() => name;
+
+  static TransactionType fromString(String value) {
+    return TransactionType.values.firstWhere((e) => e.name == value);
+  }
+}
+
 enum TransactionCategory {
   food,
   transport,
@@ -13,11 +21,19 @@ enum TransactionCategory {
   rent,
   salary,
   ocio,
-  others
+  others,
+}
+
+extension TransactionCategoryExtension on TransactionCategory {
+  String toShortString() => name;
+
+  static TransactionCategory fromString(String value) {
+    return TransactionCategory.values.firstWhere((e) => e.name == value);
+  }
 }
 
 class Transactions {
-  final String uid;
+  final String? uid;
   final String userIdTransaction;
   final TransactionType transactionType;
   final TransactionCategory transactionCategory;
@@ -26,7 +42,7 @@ class Transactions {
   final DateTime createdAt;
 
   Transactions({
-    required this.uid,
+    this.uid,
     required this.userIdTransaction,
     required this.transactionType,
     required this.transactionCategory,
@@ -37,25 +53,25 @@ class Transactions {
 
   Map<String, dynamic> toJson() {
     return {
-      'uid': uid,
+      if (uid != null) 'uid': uid,
       'userIdTransaction': userIdTransaction,
-      'transactionType': transactionType,
-      'transactionCategory': transactionCategory,
+      'transactionType': transactionType.toShortString(),
+      'transactionCategory': transactionCategory.toShortString(),
       'quantity': quantity,
-      'whenTransaction': whenTransaction,
-      'createdAt': createdAt,
+      'whenTransaction': whenTransaction.toIso8601String(),
+      'createdAt': createdAt.toIso8601String(),
     };
   }
 
-  factory Transactions.fromJson(Map<String, dynamic> jsonUser) {
+  factory Transactions.fromJson(Map<String, dynamic> json) {
     return Transactions(
-      uid: jsonUser['uid'],
-      userIdTransaction: jsonUser['userIdTransaction'],
-      transactionType: jsonUser['transactionType'],
-      transactionCategory: jsonUser['transactionCategory'],
-      quantity: jsonUser['quantity'],
-      whenTransaction: jsonUser['whenTransaction'],
-      createdAt: jsonUser['createdAt'],
+      uid: json['uid'],
+      userIdTransaction: json['userIdTransaction'],
+      transactionType: TransactionTypeExtension.fromString(json['transactionType']),
+      transactionCategory: TransactionCategoryExtension.fromString(json['transactionCategory']),
+      quantity: (json['quantity'] as num).toDouble(),
+      whenTransaction: DateTime.parse(json['whenTransaction']),
+      createdAt: DateTime.parse(json['createdAt']),
     );
   }
 }
